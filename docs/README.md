@@ -19,9 +19,9 @@ website/
 ├── chapters.html       # Table of contents
 ├── author.html         # Author bio, photo, social links
 ├── css/
-│   └── styles.css      # All styling (current version: v=7)
+│   └── styles.css      # All styling (current version: v=8)
 ├── js/
-│   └── main.js         # Mobile nav toggle (current version: v=1)
+│   └── main.js         # Mobile nav, subscription success (current version: v=2)
 ├── assets/
 │   ├── book_cover2.png # Book cover image
 │   └── joakim.png      # Author photo
@@ -107,15 +107,16 @@ GitHub Pages provisions a TLS certificate automatically. To enable:
 CSS and JS files use version query strings to bust browser cache:
 
 ```html
-<link rel="stylesheet" href="css/styles.css?v=7">
-<script src="js/main.js?v=1"></script>
+<link rel="stylesheet" href="css/styles.css?v=8">
+<script src="js/main.js?v=2"></script>
 ```
 
 **When changing CSS/JS, bump the version number in ALL HTML files:**
 
 ```bash
-# Example: v=7 → v=8
-# Update in: index.html, about.html, chapters.html, author.html
+# Quick update with sed:
+sed -i '' 's/styles.css?v=8/styles.css?v=9/g' index.html about.html chapters.html author.html
+sed -i '' 's/main.js?v=2/main.js?v=3/g' index.html about.html chapters.html author.html
 ```
 
 ### Testing Locally
@@ -143,6 +144,16 @@ Forms appear on:
 
 Web3Forms free tier allows **250 submissions/month**. Switched from Formspree (50/month) on 2026-02-02.
 
+### Subscription Success Flow
+
+1. User submits email
+2. Web3Forms processes submission
+3. Page redirects back with `?subscribed=true` query param
+4. JavaScript in `main.js` detects param and replaces form with success message
+5. URL is cleaned up (query param removed)
+
+The success message styling is in `styles.css` (`.subscription-success` class).
+
 ---
 
 ## Social Links
@@ -164,6 +175,9 @@ Links to Joakim's profiles appear in:
 
 | Commit | Description |
 |--------|-------------|
+| `40dcd61` | Subscription success message |
+| `6368b73` | Switch to Web3Forms |
+| `077d82c` | Switch to Tally (reverted) |
 | `37883bc` | Before announcement bar (revert point) |
 | `ce746a7` | Formspree integration |
 | `c331af2` | Author photo + Amazon book link |
