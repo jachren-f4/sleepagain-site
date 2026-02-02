@@ -19,9 +19,9 @@ website/
 ├── chapters.html       # Table of contents
 ├── author.html         # Author bio, photo, social links
 ├── css/
-│   └── styles.css      # All styling
+│   └── styles.css      # All styling (current version: v=7)
 ├── js/
-│   └── main.js         # Mobile nav toggle
+│   └── main.js         # Mobile nav toggle (current version: v=1)
 ├── assets/
 │   ├── book_cover2.png # Book cover image
 │   └── joakim.png      # Author photo
@@ -47,9 +47,19 @@ website/
 | Element | Value |
 |---------|-------|
 | Primary color | `#031D34` (dark blue) |
-| Background | `#EFEEEA` (warm off-white) |
+| Background | `#EFEEEA` (warm off-white, matches book cover) |
 | Font | Source Serif 4 |
 | Book cover max-width | 526px (desktop), 330px (mobile) |
+| Spacing lg | 2.5rem |
+| Spacing xl | 3rem |
+
+---
+
+## Style Guidelines
+
+- **Author name:** Always use "Achrén" with the accent (not "Achren")
+- **No em dashes:** Use commas, colons, or periods instead of "—"
+- **Year:** Copyright and dates should use 2026
 
 ---
 
@@ -67,6 +77,15 @@ git push
 ```
 
 Changes typically appear within 1-2 minutes.
+
+### HTTPS Setup
+
+GitHub Pages provisions a TLS certificate automatically. To enable:
+
+1. Go to https://github.com/jachren-f4/sleepagain-site/settings/pages
+2. Wait for "TLS certificate is being provisioned" to complete
+3. Check the **"Enforce HTTPS"** box
+4. Site will then be accessible at https://sleepagain.co
 
 ### DNS Configuration (GoDaddy)
 
@@ -88,14 +107,14 @@ Changes typically appear within 1-2 minutes.
 CSS and JS files use version query strings to bust browser cache:
 
 ```html
-<link rel="stylesheet" href="css/styles.css?v=6">
+<link rel="stylesheet" href="css/styles.css?v=7">
 <script src="js/main.js?v=1"></script>
 ```
 
 **When changing CSS/JS, bump the version number in ALL HTML files:**
 
 ```bash
-# Example: v=6 → v=7
+# Example: v=7 → v=8
 # Update in: index.html, about.html, chapters.html, author.html
 ```
 
@@ -149,6 +168,9 @@ Links to Joakim's profiles appear in:
 | `ce746a7` | Formspree integration |
 | `c331af2` | Author photo + Amazon book link |
 | `2c20233` | Social links everywhere |
+| `5055695` | Author name with accent (Achrén) |
+| `c9c625a` | Em dashes removed |
+| `09ffccc` | Reduced vertical spacing by 50% |
 
 ### Reverting Changes
 
@@ -164,9 +186,9 @@ git push --force
 
 ### Homepage (index.html)
 - Announcement bar with launch date
-- Hero with book cover, title, author byline
+- Hero with book cover, title, author byline ("by Joakim Achrén")
 - Email signup form
-- Social links
+- Social links (X, LinkedIn, Substack)
 - "Why This Book?" section with 3 feature cards
 
 ### About (about.html)
@@ -183,7 +205,7 @@ git push --force
 ### Author (author.html)
 - Author photo
 - Bio
-- Link to previous book (The Long-Term Game)
+- Link to previous book (The Long-Term Game on Amazon)
 - Social links
 
 ---
@@ -194,10 +216,34 @@ git push --force
 - **Tablet:** 768px - 1024px
 - **Desktop:** > 1024px
 
+Mobile-specific adjustments:
+- Smaller announcement bar text
+- Tighter vertical spacing
+- Book cover: 330px max-width
+- Stacked hero layout (book above text)
+
 ---
 
 ## External Links
 
-- **Previous book:** https://www.amazon.com/Long-Term-Game-Build-Company/dp/952942874X
-- **GitHub repo:** https://github.com/jachren-f4/sleepagain-site
-- **Formspree dashboard:** https://formspree.io/forms/xaqbdblp/submissions
+| Resource | URL |
+|----------|-----|
+| Live site | https://sleepagain.co |
+| GitHub repo | https://github.com/jachren-f4/sleepagain-site |
+| GitHub Pages settings | https://github.com/jachren-f4/sleepagain-site/settings/pages |
+| Formspree dashboard | https://formspree.io/forms/xaqbdblp/submissions |
+| Previous book (Amazon) | https://www.amazon.com/Long-Term-Game-Build-Company/dp/952942874X |
+| GoDaddy DNS | https://dcc.godaddy.com |
+
+---
+
+## Social Media Announcement
+
+A draft announcement post is saved at:
+```
+/Users/joakimachren/Desktop/book-announcement.txt
+```
+
+**Wait for HTTPS to be enabled before posting** so the link shows as secure.
+
+To check HTTPS status: GitHub repo → Settings → Pages
