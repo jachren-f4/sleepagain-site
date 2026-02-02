@@ -17,8 +17,8 @@
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
   --spacing-md: 2rem;
-  --spacing-lg: 4rem;
-  --spacing-xl: 6rem;
+  --spacing-lg: 2.5rem;
+  --spacing-xl: 3rem;
 }
 
 html {
@@ -179,7 +179,7 @@ nav a.active::after {
 
 /* Hero Section */
 .hero {
-  padding: var(--spacing-xl) 0;
+  padding: var(--spacing-lg) 0;
   position: relative;
   overflow: hidden;
 }
@@ -322,7 +322,7 @@ nav a.active::after {
 
 /* Page Sections */
 .section {
-  padding: var(--spacing-xl) 0;
+  padding: var(--spacing-lg) 0;
 }
 
 .section-header {
