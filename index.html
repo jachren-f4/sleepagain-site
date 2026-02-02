@@ -58,9 +58,16 @@
       <!-- Decorative curved lines -->
       <div class="curve-decoration curve-top-right">
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 200C0 89.543 89.543 0 200 0" stroke="#031D34" stroke-width="2"/>
-          <path d="M40 200C40 111.634 111.634 40 200 40" stroke="#031D34" stroke-width="2"/>
-          <path d="M80 200C80 133.726 133.726 80 200 80" stroke="#031D34" stroke-width="2"/>
+          <defs>
+            <linearGradient id="fadeGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#031D34" stop-opacity="0"/>
+              <stop offset="50%" stop-color="#031D34" stop-opacity="0.5"/>
+              <stop offset="100%" stop-color="#031D34" stop-opacity="1"/>
+            </linearGradient>
+          </defs>
+          <path d="M0 200C0 89.543 89.543 0 200 0" stroke="url(#fadeGradient)" stroke-width="2"/>
+          <path d="M40 200C40 111.634 111.634 40 200 40" stroke="url(#fadeGradient)" stroke-width="2"/>
+          <path d="M80 200C80 133.726 133.726 80 200 80" stroke="url(#fadeGradient)" stroke-width="2"/>
         </svg>
       </div>
     </section>
