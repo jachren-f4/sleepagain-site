@@ -444,6 +444,34 @@ nav a.active::after {
   border-radius: 8px;
 }
 
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-background);
+  transition: background-color 0.2s ease;
+}
+
+.social-links a:hover {
+  background-color: var(--color-accent);
+}
+
+.social-links svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
 .author-bio h2 {
   margin-bottom: var(--spacing-md);
 }
