@@ -226,7 +226,7 @@ nav a.active::after {
 }
 
 .book-cover {
-  max-width: 438px;
+  max-width: 526px;
 }
 
 /* Curved Line Decoration */
@@ -636,7 +636,7 @@ footer {
   }
 
   .book-cover {
-    max-width: 275px;
+    max-width: 330px;
   }
 
   .waitlist-form {
