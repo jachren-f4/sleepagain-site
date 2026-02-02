@@ -137,16 +137,13 @@
         <div style="margin-top: 4rem; padding: 2rem; background-color: #f8f9fa; border-radius: 8px; text-align: center;">
           <h3 style="margin-bottom: 1rem;">Coming April 9th, 2026</h3>
           <p style="margin-bottom: 1.5rem;">Get notified when Sleep Again launches.</p>
-          <iframe
-            data-tally-src="https://tally.so/embed/Xx0BeY?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-            width="100%"
-            height="120"
-            frameborder="0"
-            marginheight="0"
-            marginwidth="0"
-            title="Waitlist form"
-            style="max-width: 500px; margin: 0 auto;">
-          </iframe>
+          <form class="waitlist-form" action="https://api.web3forms.com/submit" method="POST" style="justify-content: center; margin: 0 auto;">
+            <input type="hidden" name="access_key" value="27643981-3bb1-40e1-9081-c61680bfa8a2">
+            <input type="hidden" name="subject" value="New Sleep Again Waitlist Signup">
+            <input type="hidden" name="redirect" value="https://sleepagain.co/chapters.html?subscribed=true">
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <button type="submit" class="btn btn-primary">Join the Waitlist</button>
+          </form>
         </div>
       </div>
     </section>
@@ -186,6 +183,5 @@
   </footer>
 
   <script src="js/main.js?v=1"></script>
-  <script src="https://tally.so/widgets/embed.js"></script>
 </body>
 </html>

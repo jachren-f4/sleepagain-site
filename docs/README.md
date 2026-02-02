@@ -36,7 +36,7 @@ website/
 
 - **HTML/CSS/JS** - Static site, no build tools
 - **Google Fonts** - Source Serif 4
-- **Tally** - Email collection (unlimited submissions free)
+- **Web3Forms** - Email collection (250 submissions/month free)
 - **GitHub Pages** - Hosting (free)
 - **GoDaddy** - Domain registrar
 
@@ -129,11 +129,10 @@ Force refresh to bypass cache: **Cmd+Shift+R**
 
 ---
 
-## Email Collection (Tally)
+## Email Collection (Web3Forms)
 
-**Form ID:** `Xx0BeY`
-**Dashboard:** https://tally.so/forms/Xx0BeY/submissions
-**Form URL:** https://tally.so/r/Xx0BeY
+**Access Key:** `27643981-3bb1-40e1-9081-c61680bfa8a2`
+**Dashboard:** https://web3forms.com/dashboard
 
 Forms appear on:
 - Homepage hero
@@ -142,7 +141,7 @@ Forms appear on:
 - Chapters page CTA
 - Author page footer
 
-Tally free tier allows **unlimited submissions**. Switched from Formspree (50/month limit) on 2026-02-02.
+Web3Forms free tier allows **250 submissions/month**. Switched from Formspree (50/month) on 2026-02-02.
 
 ---
 
@@ -232,7 +231,7 @@ Mobile-specific adjustments:
 | Live site | https://sleepagain.co |
 | GitHub repo | https://github.com/jachren-f4/sleepagain-site |
 | GitHub Pages settings | https://github.com/jachren-f4/sleepagain-site/settings/pages |
-| Tally dashboard | https://tally.so/forms/Xx0BeY/submissions |
+| Web3Forms dashboard | https://web3forms.com/dashboard |
 | Previous book (Amazon) | https://www.amazon.com/Long-Term-Game-Build-Company/dp/952942874X |
 | GoDaddy DNS | https://dcc.godaddy.com |
 
