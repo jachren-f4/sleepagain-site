@@ -7,7 +7,7 @@
 
 :root {
   --color-primary: #031D34;
-  --color-background: #FFFFFF;
+  --color-background: #f7f7f7;
   --color-text: #333333;
   --color-text-light: #666666;
   --color-accent: #1a4a6e;
@@ -207,8 +207,6 @@ nav a.active::after {
 
 .book-cover {
   max-width: 350px;
-  box-shadow: 0 20px 60px rgba(3, 29, 52, 0.2);
-  border-radius: 4px;
 }
 
 /* Curved Line Decoration */
