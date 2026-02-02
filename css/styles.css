@@ -437,13 +437,11 @@ nav a.active::after {
 .author-image {
   width: 100%;
   max-width: 300px;
+}
+
+.author-image img {
+  width: 100%;
   border-radius: 8px;
-  background-color: var(--color-border);
-  aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-text-light);
 }
 
 .author-bio h2 {
