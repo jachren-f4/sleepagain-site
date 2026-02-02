@@ -320,6 +320,22 @@ nav a.active::after {
   margin-top: var(--spacing-xs);
 }
 
+.subscription-success {
+  padding: 1rem 1.5rem;
+  background-color: var(--color-primary);
+  color: var(--color-background);
+  border-radius: 4px;
+  max-width: 450px;
+}
+
+.subscription-success p {
+  margin: 0;
+}
+
+.subscription-success p:first-child {
+  margin-bottom: 0.25rem;
+}
+
 /* Page Sections */
 .section {
   padding: var(--spacing-lg) 0;

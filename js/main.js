@@ -1,5 +1,20 @@
 // Mobile Navigation Toggle
 document.addEventListener('DOMContentLoaded', function() {
+  // Check for successful subscription
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('subscribed') === 'true') {
+    // Replace all waitlist forms with success message
+    const forms = document.querySelectorAll('.waitlist-form');
+    forms.forEach(function(form) {
+      const successMessage = document.createElement('div');
+      successMessage.className = 'subscription-success';
+      successMessage.innerHTML = '<p><strong>You\'re on the list!</strong></p><p>We\'ll notify you when the book launches.</p>';
+      form.replaceWith(successMessage);
+    });
+
+    // Clean up URL (remove query param)
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
   const navToggle = document.querySelector('.nav-toggle');
   const nav = document.querySelector('nav');
 
