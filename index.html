@@ -244,5 +244,46 @@
   </footer>
 
   <script src="js/main.js?v=2"></script>
+  <script>
+  (function() {
+    // A/B test: assign variant and persist in localStorage
+    var v = localStorage.getItem('ab_variant');
+    if (!v) {
+      v = Math.random() < 0.5 ? 'A' : 'B';
+      localStorage.setItem('ab_variant', v);
+    }
+
+    // Apply variant B changes
+    if (v === 'B') {
+      var desc = document.querySelector('.hero-description');
+      if (desc) desc.textContent = '27 chapters of science-backed strategies for founders who build all day and lie awake all night.';
+
+      var btn = document.querySelector('.hero .btn-primary');
+      if (btn) btn.textContent = 'Join the Waitlist';
+    }
+
+    // Tag all signup buttons with variant
+    var btns = document.querySelectorAll('[data-umami-event="waitlist-signup"]');
+    for (var j = 0; j < btns.length; j++) {
+      btns[j].setAttribute('data-umami-event-variant', v);
+    }
+
+    // Tag hero form redirect with variant for conversion attribution
+    var redirects = document.querySelectorAll('.hero .waitlist-form input[name="redirect"]');
+    for (var j = 0; j < redirects.length; j++) {
+      redirects[j].value = redirects[j].value.replace('subscribed=true', 'subscribed=true&variant=' + v);
+    }
+
+    // Track variant on page view
+    function sendView() { umami.track('ab-pageview', { variant: v }); }
+    if (window.umami) { sendView(); }
+    else {
+      var i = setInterval(function() {
+        if (window.umami) { sendView(); clearInterval(i); }
+      }, 200);
+      setTimeout(function() { clearInterval(i); }, 5000);
+    }
+  })();
+  </script>
 </body>
 </html>
