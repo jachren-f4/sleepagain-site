@@ -1,0 +1,32 @@
+# Sleep Again - sleepagain.co
+# Allow all crawlers including LLM bots
+
+User-agent: *
+Allow: /
+
+# Explicitly welcome LLM crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+Sitemap: https://sleepagain.co/sitemap.xml

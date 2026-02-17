@@ -41,4 +41,16 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+
+  // Dropdown toggle for mobile
+  var dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+  dropdownToggles.forEach(function(toggle) {
+    toggle.addEventListener('click', function(e) {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        var parent = toggle.parentElement;
+        parent.classList.toggle('open');
+      }
+    });
+  });
 });

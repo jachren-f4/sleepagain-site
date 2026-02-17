@@ -159,6 +159,215 @@ nav a.active::after {
   width: 100%;
 }
 
+/* Dropdown Navigation */
+.nav-dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: var(--spacing-xs) 0;
+  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 200;
+  flex-direction: column;
+  gap: 0;
+}
+
+.nav-dropdown:hover .dropdown-menu {
+  display: flex;
+}
+
+.dropdown-menu li {
+  list-style: none;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 0.5rem 1rem;
+  font-size: 0.9375rem;
+  white-space: nowrap;
+}
+
+.dropdown-menu a:hover {
+  background-color: rgba(3, 29, 52, 0.05);
+}
+
+.dropdown-menu a::after {
+  display: none;
+}
+
+/* Blog Listing */
+.blog-list {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.blog-list-item {
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.blog-list-item:last-child {
+  border-bottom: none;
+}
+
+.blog-list-item h2 {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.blog-list-item h2 a {
+  color: var(--color-primary);
+}
+
+.blog-list-item h2 a:hover {
+  color: var(--color-accent);
+}
+
+.blog-list-date {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-xs);
+}
+
+.blog-list-summary {
+  color: var(--color-text);
+  margin-bottom: 0;
+}
+
+/* Blog Post */
+.blog-post {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.blog-meta {
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-md);
+}
+
+.blog-content {
+  font-size: 1.125rem;
+}
+
+.blog-content p {
+  margin-bottom: var(--spacing-md);
+}
+
+.blog-content h2 {
+  margin-top: var(--spacing-xl);
+  margin-bottom: var(--spacing-sm);
+}
+
+.blog-content h3 {
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-xs);
+}
+
+.blog-content ul,
+.blog-content ol {
+  margin-left: 1.5rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.blog-content li {
+  margin-bottom: var(--spacing-xs);
+}
+
+.blog-content blockquote {
+  border-left: 3px solid var(--color-primary);
+  padding-left: var(--spacing-md);
+  margin: var(--spacing-md) 0;
+  color: var(--color-text-light);
+  font-style: italic;
+}
+
+.blog-cta {
+  margin-top: var(--spacing-xl);
+  padding: var(--spacing-md);
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.blog-cta h3 {
+  margin-bottom: var(--spacing-xs);
+}
+
+.blog-cta p {
+  margin-bottom: var(--spacing-sm);
+}
+
+/* FAQ Page */
+.faq-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.faq-group {
+  margin-bottom: var(--spacing-xl);
+}
+
+.faq-group-title {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.faq-item {
+  margin-bottom: var(--spacing-lg);
+}
+
+.faq-item h3 {
+  font-size: 1.25rem;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-primary);
+}
+
+.faq-item p {
+  font-size: 1.0625rem;
+  color: var(--color-text);
+  margin-bottom: 0;
+}
+
+/* Comparison Table */
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--spacing-md) 0;
+  font-size: 1rem;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.comparison-table th {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+  font-weight: 600;
+}
+
+.comparison-table tr:hover {
+  background-color: rgba(3, 29, 52, 0.03);
+}
+
 /* Mobile Navigation */
 .nav-toggle {
   display: none;
@@ -646,6 +855,27 @@ footer {
   nav ul {
     flex-direction: column;
     gap: var(--spacing-sm);
+  }
+
+  .nav-dropdown {
+    position: static;
+  }
+
+  .dropdown-menu {
+    position: static;
+    box-shadow: none;
+    border: none;
+    padding: 0 0 0 var(--spacing-sm);
+    min-width: auto;
+    display: none;
+  }
+
+  .nav-dropdown.open .dropdown-menu {
+    display: flex;
+  }
+
+  .dropdown-menu a {
+    padding: 0.375rem 0;
   }
 
   .hero {
