@@ -79,11 +79,7 @@
             <p>Sleep Again is a 27-chapter guide for entrepreneurs who sleep badly. It covers the science of why founders are more vulnerable to sleep problems, and what actually works to fix it. Written after a burnout in 2019 and two years of research.</p>
           </div>
 
-          <form action="https://api.web3forms.com/submit" method="POST" style="background: #f8f7f4; border-radius: 8px; padding: 2rem;">
-            <input type="hidden" name="access_key" value="27643981-3bb1-40e1-9081-c61680bfa8a2">
-            <input type="hidden" name="subject" value="New ARC Reader Sign-up — Sleep Again">
-            <input type="hidden" name="redirect" value="https://sleepagain.co/arc-thank-you.html">
-
+          <form id="arc-form" style="background: #f8f7f4; border-radius: 8px; padding: 2rem;">
             <h3 style="margin-top: 0; margin-bottom: 1.25rem;">Sign up for an advance copy</h3>
 
             <div style="margin-bottom: 1rem;">
@@ -93,12 +89,13 @@
             </div>
 
             <div style="margin-bottom: 1.5rem;">
-              <label for="email" for="email" style="display: block; font-size: 0.9rem; margin-bottom: 0.35rem; color: #444;">Your email</label>
+              <label for="email" style="display: block; font-size: 0.9rem; margin-bottom: 0.35rem; color: #444;">Your email</label>
               <input type="email" id="email" name="email" required placeholder="you@example.com"
                 style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; font-size: 1rem; box-sizing: border-box;">
             </div>
 
-            <button type="submit" class="btn btn-primary" style="width: 100%;" data-umami-event="arc-signup">Request my free copy</button>
+            <button type="submit" id="arc-submit" class="btn btn-primary" style="width: 100%;" data-umami-event="arc-signup">Request my free copy</button>
+            <p id="arc-error" style="display:none; font-size: 0.85rem; color: #c0392b; margin-top: 0.75rem; margin-bottom: 0; text-align: center;">Something went wrong. Please try again.</p>
             <p style="font-size: 0.82rem; color: #888; margin-top: 0.85rem; margin-bottom: 0; text-align: center;">I'll follow up by email with your copy in early March.</p>
           </form>
 
@@ -143,5 +140,40 @@
   </footer>
 
   <script src="js/main.js?v=3"></script>
+  <script>
+    document.getElementById('arc-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = document.getElementById('arc-submit');
+      var err = document.getElementById('arc-error');
+      var name = document.getElementById('name').value.trim();
+      var email = document.getElementById('email').value.trim();
+
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      err.style.display = 'none';
+
+      fetch('https://api.kit.com/v4/forms/71b63fd396/subscribers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer kit_080fd32fbab78c15e51a70fb059d59fa'
+        },
+        body: JSON.stringify({ email_address: email, first_name: name.split(' ')[0] })
+      })
+      .then(function(res) {
+        if (res.ok || res.status === 200 || res.status === 201) {
+          if (window.umami) umami.track('arc-signup-complete');
+          window.location.href = 'https://sleepagain.co/arc-thank-you.html';
+        } else {
+          throw new Error('API error ' + res.status);
+        }
+      })
+      .catch(function() {
+        btn.textContent = 'Request my free copy';
+        btn.disabled = false;
+        err.style.display = 'block';
+      });
+    });
+  </script>
 </body>
 </html>
