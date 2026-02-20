@@ -156,9 +156,9 @@
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer kit_080fd32fbab78c15e51a70fb059d59fa'
+          'X-Kit-Api-Key': 'kit_080fd32fbab78c15e51a70fb059d59fa'
         },
-        body: JSON.stringify({ email_address: email, first_name: name.split(' ')[0] })
+        body: JSON.stringify({ email_address: email, first_name: name.split(' ')[0], tags: [16319185] })
       })
       .then(function(res) {
         if (res.ok || res.status === 200 || res.status === 201) {
