@@ -152,13 +152,10 @@
       btn.disabled = true;
       err.style.display = 'none';
 
-      fetch('https://api.kit.com/v4/forms/71b63fd396/subscribers', {
+      fetch('https://api.convertkit.com/v3/forms/9110349/subscribe', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Kit-Api-Key': 'kit_080fd32fbab78c15e51a70fb059d59fa'
-        },
-        body: JSON.stringify({ email_address: email, first_name: name.split(' ')[0], tags: [16319185] })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ api_key: 'DUyq416rGUL_qxk-o1jLlQ', email: email, first_name: name.split(' ')[0], tags: [16319185] })
       })
       .then(function(res) {
         if (res.ok || res.status === 200 || res.status === 201) {
