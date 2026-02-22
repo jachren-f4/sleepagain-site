@@ -265,7 +265,7 @@
     fetch('https://api.convertkit.com/v3/forms/9118264/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ api_key: 'DUyq416rGUL_qxk-o1jLlQ', email: email })
+      body: JSON.stringify({ api_key: 'DUyq416rGUL_qxk-o1jLlQ', email: email, tags: [16407733] })
     })
     .then(function(res) {
       if (res.ok || res.status === 200 || res.status === 201) {
