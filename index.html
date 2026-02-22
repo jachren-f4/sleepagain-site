@@ -115,11 +115,8 @@
             </div>
             <p class="form-note">Launch price: $2.99 (first week only). Paperback $16.99. Hardcover $27.99.</p>
             -->
-            <form class="waitlist-form" action="https://api.web3forms.com/submit" method="POST">
-              <input type="hidden" name="access_key" value="27643981-3bb1-40e1-9081-c61680bfa8a2">
-              <input type="hidden" name="subject" value="New Sleep Again Waitlist Signup">
-              <input type="hidden" name="redirect" value="https://sleepagain.co/?subscribed=true">
-              <input type="email" name="email" placeholder="Enter your email" required>
+            <form id="hero-waitlist-form" class="waitlist-form">
+              <input type="email" id="hero-waitlist-email" placeholder="Enter your email" required>
               <button type="submit" class="btn btn-primary" data-umami-event="waitlist-signup" data-umami-event-location="hero">Get Notified</button>
             </form>
             <p class="form-note">Be the first to know when the book launches. No spam, ever.</p>
@@ -236,11 +233,8 @@
             </a>
           </div>
           <div class="footer-form">
-            <form class="waitlist-form" action="https://api.web3forms.com/submit" method="POST">
-              <input type="hidden" name="access_key" value="27643981-3bb1-40e1-9081-c61680bfa8a2">
-              <input type="hidden" name="subject" value="New Sleep Again Waitlist Signup">
-              <input type="hidden" name="redirect" value="https://sleepagain.co/?subscribed=true">
-              <input type="email" name="email" placeholder="Enter your email" required>
+            <form id="footer-waitlist-form" class="waitlist-form">
+              <input type="email" id="footer-waitlist-email" placeholder="Enter your email" required>
               <button type="submit" class="btn" data-umami-event="waitlist-signup" data-umami-event-location="footer">Get Notified</button>
             </form>
           </div>
@@ -264,6 +258,44 @@
 
   <script src="js/main.js?v=3"></script>
   <script>
+  function submitWaitlist(email, btn, redirectPath) {
+    btn.disabled = true;
+    var originalText = btn.textContent;
+    btn.textContent = 'Sending…';
+    fetch('https://api.convertkit.com/v3/forms/9118264/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ api_key: 'DUyq416rGUL_qxk-o1jLlQ', email: email })
+    })
+    .then(function(res) {
+      if (res.ok || res.status === 200 || res.status === 201) {
+        window.location.href = redirectPath;
+      } else {
+        throw new Error('API error ' + res.status);
+      }
+    })
+    .catch(function() {
+      btn.textContent = originalText;
+      btn.disabled = false;
+    });
+  }
+
+  document.getElementById('hero-waitlist-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = document.getElementById('hero-waitlist-email').value.trim();
+    var btn = this.querySelector('button[type="submit"]');
+    var variant = window._abVariant || 'A';
+    submitWaitlist(email, btn, 'https://sleepagain.co/?subscribed=true&variant=' + variant);
+  });
+
+  document.getElementById('footer-waitlist-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = document.getElementById('footer-waitlist-email').value.trim();
+    var btn = this.querySelector('button[type="submit"]');
+    submitWaitlist(email, btn, 'https://sleepagain.co/?subscribed=true');
+  });
+  </script>
+  <script>
   (function() {
     // A/B test: assign variant and persist in localStorage
     var v = localStorage.getItem('ab_variant');
@@ -281,16 +313,13 @@
       if (btn) btn.textContent = 'Count me in';
     }
 
+    // Expose variant for form handlers
+    window._abVariant = v;
+
     // Tag all signup buttons with variant
     var btns = document.querySelectorAll('[data-umami-event="waitlist-signup"]');
     for (var j = 0; j < btns.length; j++) {
       btns[j].setAttribute('data-umami-event-variant', v);
-    }
-
-    // Tag hero form redirect with variant for conversion attribution
-    var redirects = document.querySelectorAll('.hero .waitlist-form input[name="redirect"]');
-    for (var j = 0; j < redirects.length; j++) {
-      redirects[j].value = redirects[j].value.replace('subscribed=true', 'subscribed=true&variant=' + v);
     }
 
     // Track variant on page view
