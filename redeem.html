@@ -13,8 +13,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
-  <!-- Lightweight QR code library (for desktop fallback only) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSi2MsQpyPIUkPdSBGCOHFbRe0kFBnm3O2fg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <link rel="stylesheet" href="css/styles.css?v=9">
   <style>
     .redeem-page {
@@ -317,24 +315,14 @@
       document.getElementById('desktop-code-display').textContent = code;
       showState('state-desktop');
 
-      // Generate QR code targeting the redeem URL (not App Store directly,
-      // so mobile gets the deep-link attempt first)
-      if (typeof QRCode !== 'undefined') {
-        try {
-          new QRCode(document.getElementById('desktop-qr-canvas'), {
-            text: redeemUrl,
-            width: 200,
-            height: 200,
-            colorDark: '#031D34',
-            colorLight: '#F5F3F0',
-            correctLevel: QRCode.CorrectLevel.M,
-          });
-        } catch (e) {
-          // QR code library failed — hide the QR container, code is still visible
-          var qrContainer = document.querySelector('.desktop-qr');
-          if (qrContainer) qrContainer.style.display = 'none';
-        }
-      }
+      // Render QR code via qrserver.com (no library dependency)
+      var img = document.createElement('img');
+      img.src = 'https://api.qrserver.com/v1/create-qr-code/?data=' + encodeURIComponent(redeemUrl) + '&size=200x200&margin=10&color=031D34&bgcolor=F5F3F0';
+      img.alt = 'QR code';
+      img.width = 200;
+      img.height = 200;
+      img.style.borderRadius = '4px';
+      document.getElementById('desktop-qr-canvas').appendChild(img);
     }
   })();
   </script>
