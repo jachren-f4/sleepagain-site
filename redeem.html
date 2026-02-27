@@ -245,7 +245,7 @@
   (function () {
     // Update this once the App Store listing is live (by Mar 24)
     var APP_STORE_URL = 'https://apps.apple.com/app/PLACEHOLDER';
-    var DEEP_LINK_SCHEME = 'sleeppredict://redeem';
+    var DEEP_LINK_SCHEME = 'sleepagain://redeem';
     var DEEP_LINK_TIMEOUT_MS = 1500;
 
     function showState(id) {
@@ -267,7 +267,7 @@
 
     // Persist code in localStorage so the app can pick it up post-install
     try {
-      localStorage.setItem('sleeppredict_redeem_code', code);
+      localStorage.setItem('sleepagain_redeem_code', code);
     } catch (e) {
       // localStorage may be blocked in private browsing — non-fatal
     }
