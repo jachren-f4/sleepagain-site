@@ -2,69 +2,524 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <script defer src="https://umami-gray-one.vercel.app/script.js" data-website-id="7af0c0e1-476d-4db7-a786-cd335185dbb6"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sleep Again — Sleep Again</title>
-  <!-- App Store URL set. Will not resolve publicly until April 9 launch date. -->
-  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Sleep Again predicts your early morning wake-up risk each evening — before you go to sleep. Based on your HRV, heart rate, and sleep history from Apple Health.">
+  <title>Sleep Again — iOS App</title>
   <link rel="canonical" href="https://sleepagain.co/app">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=9">
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #F5F3F0;
-      color: #1B2340;
+    :root {
+      --color-primary:    #031D34;
+      --color-text-light: #666666;
+      --color-accent:     #1a4a6e;
+      --color-border:     #e0e0e0;
+    }
+
+    /* ── HERO ──────────────────────────────────────────────────── */
+
+    .app-hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 40px 72px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .app-hero h1 {
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 600;
+      color: var(--color-primary);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    .app-hero p {
+      font-size: 17px;
+      color: var(--color-text-light);
+      line-height: 1.75;
+      margin-bottom: 12px;
+      max-width: 480px;
+    }
+
+    .hero-meta {
+      font-size: 13px;
+      color: #aaa;
+      margin-bottom: 36px;
+    }
+
+    .app-store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      background: var(--color-primary);
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 26px;
+      border-radius: 10px;
+      transition: opacity 0.15s;
+    }
+    .app-store-btn:hover { opacity: 0.85; }
+    .app-store-btn-label { display: flex; flex-direction: column; align-items: flex-start; }
+    .app-store-btn-sub  { font-size: 10px; font-weight: 400; letter-spacing: 0.04em; opacity: 0.7; line-height: 1; margin-bottom: 3px; }
+    .app-store-btn-main { font-size: 17px; font-weight: 600; line-height: 1; }
+
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-phone {
+      width: 300px;
+      border-radius: 36px;
+      box-shadow:
+        0 2px 4px rgba(3,29,52,0.06),
+        0 8px 24px rgba(3,29,52,0.12),
+        0 32px 80px rgba(3,29,52,0.14);
+    }
+
+    /* ── SCREENSHOTS ───────────────────────────────────────────── */
+
+    .app-divider {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin: 0 40px;
+    }
+
+    .screenshots-section {
+      padding: 72px 0 80px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--color-text-light);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .screenshots-scroll {
+      display: flex;
+      gap: 24px;
+      padding: 8px 40px 24px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .screenshots-scroll::-webkit-scrollbar { display: none; }
+
+    .screenshot-item {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .screenshot-item img {
+      width: 260px;
+      height: auto;
+      border-radius: 28px;
+      display: block;
+      box-shadow:
+        0 2px 4px rgba(3,29,52,0.06),
+        0 8px 24px rgba(3,29,52,0.10),
+        0 24px 60px rgba(3,29,52,0.12);
+    }
+
+    .screenshot-caption {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--color-text-light);
+      text-align: center;
+      width: 260px;
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    @media (min-width: 1500px) {
+      .screenshots-scroll {
+        max-width: 1200px;
+        margin: 0 auto;
+        justify-content: center;
+        overflow-x: visible;
+      }
+    }
+
+    /* ── HOW IT WORKS ──────────────────────────────────────────── */
+
+    .how-section {
+      border-top: 1px solid var(--color-border);
+      padding: 80px 40px;
+    }
+
+    .how-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .how-section h2 {
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .how-section .section-intro {
+      font-size: 16px;
+      color: var(--color-text-light);
+      margin-bottom: 48px;
+      max-width: 520px;
+      text-align: left;
+    }
+
+    .how-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .how-step {
+      padding: 32px;
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      background: rgba(255,255,255,0.5);
+    }
+
+    .how-step-num {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 16px;
+    }
+
+    .how-step h3 {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .how-step p {
+      font-size: 14px;
+      color: var(--color-text-light);
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+
+    /* ── BOOK OFFER ────────────────────────────────────────────── */
+
+    .book-section {
+      border-top: 1px solid var(--color-border);
+      padding: 80px 40px;
+      background: rgba(255,255,255,0.35);
+    }
+
+    .book-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .book-text .section-label {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .book-text h2 {
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 600;
+      color: var(--color-primary);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .book-text p {
+      font-size: 16px;
+      color: var(--color-text-light);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .book-text .app-store-btn {
+      margin-top: 8px;
+    }
+
+    .redeem-steps {
+      padding-top: 48px;
+    }
+
+    .redeem-steps h3 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--color-text-light);
+      margin-bottom: 28px;
+    }
+
+    .redeem-step {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 24px;
+      align-items: flex-start;
+    }
+
+    .redeem-step-num {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+      background: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-      text-align: center;
-      padding: 2rem;
-      box-sizing: border-box;
-    }
-    .card {
-      max-width: 480px;
-    }
-    h1 {
-      font-size: 1.6rem;
-      margin-bottom: 0.75rem;
+      font-size: 13px;
       font-weight: 600;
+      color: var(--color-accent);
+      margin-top: 1px;
     }
-    p {
-      font-size: 1.05rem;
-      line-height: 1.6;
-      color: #444;
+
+    .redeem-step-body {
+      padding-top: 5px;
     }
-    .cta {
-      display: inline-block;
-      margin-top: 1.5rem;
-      padding: 0.75rem 1.75rem;
-      background: #1B2340;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 4px;
-      font-size: 1rem;
-      font-weight: 500;
+
+    .redeem-step-body strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 3px;
     }
-    .cta:hover { opacity: 0.85; }
-    .note {
-      margin-top: 1rem;
-      font-size: 0.85rem;
-      color: #888;
+
+    .redeem-step-body p {
+      font-size: 13px;
+      color: var(--color-text-light);
+      line-height: 1.55;
+      margin-bottom: 0;
+    }
+
+    /* ── RESPONSIVE ────────────────────────────────────────────── */
+
+    @media (max-width: 900px) {
+      .app-hero { grid-template-columns: 1fr; gap: 48px; padding: 56px 24px 48px; }
+      .hero-visual { order: -1; }
+      .hero-phone { width: 240px; }
+      .how-steps { grid-template-columns: 1fr; gap: 16px; }
+      .book-inner { grid-template-columns: 1fr; gap: 48px; }
+      .how-section, .book-section { padding: 56px 24px; }
+      .screenshots-scroll { padding: 8px 24px 24px; }
+      .app-divider { margin: 0 24px; }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Sleep Again</h1>
-    <p>Predict early morning wake-ups before they happen. An iOS companion app for <em>Sleep Again</em>.</p>
-    <a class="cta" href="https://apps.apple.com/app/id6759914968" id="app-link">Download on the App Store</a>
-    <p class="note">Redirecting automatically in a moment...</p>
+  <div class="announcement-bar">
+    New book by <strong>Joakim Achr&eacute;n</strong> · Coming April 9th, 2026
   </div>
-  <script>
-    var appStoreUrl = 'https://apps.apple.com/app/id6759914968';
-    var url = appStoreUrl;
-    document.getElementById('app-link').href = url;
-    setTimeout(function() { window.location.href = url; }, 3000);
-  </script>
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">Sleep Again</a>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="chapters.html">Chapters</a></li>
+          <li><a href="author.html">Author</a></li>
+          <li class="nav-dropdown">
+            <a href="#" class="dropdown-toggle">Resources</a>
+            <ul class="dropdown-menu">
+              <li><a href="blog/index.html">Articles</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+            </ul>
+          </li>
+          <li><a href="app.html" class="active">App</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="app-hero">
+      <div class="hero-text">
+        <h1>Stop waking<br>at 3am.</h1>
+        <p>Sleep Again predicts your early morning wake-up risk each evening — before you go to sleep. Based on your HRV, heart rate, and sleep history from Apple Health.</p>
+        <p class="hero-meta">Free to download &nbsp;·&nbsp; 3-day free trial &nbsp;·&nbsp; iOS 17+</p>
+        <a href="https://apps.apple.com/app/id6759914968" class="app-store-btn">
+          <svg width="20" height="24" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.24 13.77c-.03-3.14 2.57-4.67 2.68-4.74-1.46-2.14-3.74-2.43-4.55-2.46-1.93-.2-3.78 1.14-4.76 1.14-.99 0-2.51-1.11-4.13-1.08C5.3 6.67 3.2 7.88 2.05 9.82c-2.32 4.02-.59 9.97 1.66 13.23 1.11 1.6 2.42 3.38 4.14 3.32 1.67-.07 2.3-1.07 4.32-1.07 2.01 0 2.6 1.07 4.36 1.04 1.79-.03 2.92-1.62 4.01-3.23.99-1.41 1.72-3.05 2.14-4.79-4.69-1.81-5.44-7.55-.44-9.55zM14.95 4.07C15.9 2.89 16.54 1.27 16.36 0c-1.47.07-3.28.99-4.33 2.14-.95 1.1-1.78 2.79-1.56 4.42 1.64.13 3.32-.83 4.48-2.49z" fill="currentColor"/>
+          </svg>
+          <span class="app-store-btn-label">
+            <span class="app-store-btn-sub">Download on the</span>
+            <span class="app-store-btn-main">App Store</span>
+          </span>
+        </a>
+      </div>
+      <div class="hero-visual">
+        <img src="assets/01_tonight.png" alt="Sleep Again app — tonight risk view" class="hero-phone">
+      </div>
+    </section>
+
+    <hr class="app-divider">
+
+    <!-- Screenshots -->
+    <section class="screenshots-section">
+      <p class="section-label">Inside the app</p>
+      <div class="screenshots-scroll">
+        <div class="screenshot-item">
+          <img src="assets/01_tonight.png" alt="Tonight — risk prediction">
+          <p class="screenshot-caption">Your risk, calculated before you sleep.</p>
+        </div>
+        <div class="screenshot-item">
+          <img src="assets/02_welcome.png" alt="Welcome">
+          <p class="screenshot-caption">You stopped thinking about it.<br>Your body didn't.</p>
+        </div>
+        <div class="screenshot-item">
+          <img src="assets/03_score.png" alt="Sleep score">
+          <p class="screenshot-caption">98. Your body finally got it right.</p>
+        </div>
+        <div class="screenshot-item">
+          <img src="assets/04_stages.png" alt="Sleep stages">
+          <p class="screenshot-caption">Deep. REM. Core. All of it, mapped.</p>
+        </div>
+        <div class="screenshot-item">
+          <img src="assets/05_book.png" alt="Book connection">
+          <p class="screenshot-caption">The book explains it.<br>The app tracks the fix.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-section">
+      <div class="how-inner">
+        <h2>What the app does</h2>
+        <p class="section-intro">Seven nights of data is enough to see your pattern. Thirty nights is enough to understand it.</p>
+        <div class="how-steps">
+          <div class="how-step">
+            <p class="how-step-num">01 — Reads your data</p>
+            <h3>From Apple Health, on device</h3>
+            <p>Connects to Apple Health. Reads HRV, resting heart rate, and sleep stage history. All processing stays on your device — nothing is sent to external servers.</p>
+          </div>
+          <div class="how-step">
+            <p class="how-step-num">02 — Finds the pattern</p>
+            <h3>What precedes your bad nights</h3>
+            <p>After 7 nights, the app maps what leads to early waking — elevated evening HR, low HRV the day before, alcohol, stress markers. Your pattern, not a generic one.</p>
+          </div>
+          <div class="how-step">
+            <p class="how-step-num">03 — Predicts tonight</p>
+            <h3>Before you go to sleep</h3>
+            <p>Each evening you get a risk score. On a high-risk night, you know in advance — and you have time to act on it before it becomes a 3am problem.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Book offer -->
+    <section class="book-section">
+      <div class="book-inner">
+        <div class="book-text">
+          <p class="section-label" style="text-align:left;">For book readers</p>
+          <h2>Read the book.<br>Get 3 months free.</h2>
+          <p>Buy <em>Sleep Again</em> by Joakim Achr&eacute;n and unlock 3 months of the app at no extra cost.</p>
+          <p>Your book purchase confirmation includes a redemption code. Tap "Redeem a pass" on the subscription screen to activate it.</p>
+          <a href="https://apps.apple.com/app/id6759914968" class="app-store-btn">
+            <svg width="20" height="24" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18.24 13.77c-.03-3.14 2.57-4.67 2.68-4.74-1.46-2.14-3.74-2.43-4.55-2.46-1.93-.2-3.78 1.14-4.76 1.14-.99 0-2.51-1.11-4.13-1.08C5.3 6.67 3.2 7.88 2.05 9.82c-2.32 4.02-.59 9.97 1.66 13.23 1.11 1.6 2.42 3.38 4.14 3.32 1.67-.07 2.3-1.07 4.32-1.07 2.01 0 2.6 1.07 4.36 1.04 1.79-.03 2.92-1.62 4.01-3.23.99-1.41 1.72-3.05 2.14-4.79-4.69-1.81-5.44-7.55-.44-9.55zM14.95 4.07C15.9 2.89 16.54 1.27 16.36 0c-1.47.07-3.28.99-4.33 2.14-.95 1.1-1.78 2.79-1.56 4.42 1.64.13 3.32-.83 4.48-2.49z" fill="currentColor"/>
+            </svg>
+            <span class="app-store-btn-label">
+              <span class="app-store-btn-sub">Download on the</span>
+              <span class="app-store-btn-main">App Store</span>
+            </span>
+          </a>
+        </div>
+
+        <div class="redeem-steps">
+          <h3>How to redeem</h3>
+          <div class="redeem-step">
+            <div class="redeem-step-num">1</div>
+            <div class="redeem-step-body">
+              <strong>Download Sleep Again</strong>
+              <p>Free on the App Store. iOS 17 or later.</p>
+            </div>
+          </div>
+          <div class="redeem-step">
+            <div class="redeem-step-num">2</div>
+            <div class="redeem-step-body">
+              <strong>Tap "Redeem a pass"</strong>
+              <p>On the subscription screen, before subscribing.</p>
+            </div>
+          </div>
+          <div class="redeem-step">
+            <div class="redeem-step-num">3</div>
+            <div class="redeem-step-body">
+              <strong>Enter your code</strong>
+              <p>From your book purchase email. Or scan the QR code if one was included.</p>
+            </div>
+          </div>
+          <div class="redeem-step">
+            <div class="redeem-step-num">4</div>
+            <div class="redeem-step-body">
+              <strong>3 months unlocked</strong>
+              <p>No payment required. Access all premium features immediately.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-main">
+          <h3>Sleep Again</h3>
+          <p>A book about reclaiming rest without giving up your ambitions.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="about.html">About the Book</a></li>
+            <li><a href="chapters.html">Chapters</a></li>
+            <li><a href="author.html">Author</a></li>
+            <li><a href="blog/index.html">Articles</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="support.html">App Support</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Joakim Achr&eacute;n. All rights reserved. &middot; <a href="privacy.html">Privacy</a> &middot; <a href="terms.html">Terms</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=3"></script>
 </body>
 </html>
