@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script defer src="https://umami-gray-one.vercel.app/script.js" data-website-id="7af0c0e1-476d-4db7-a786-cd335185dbb6"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Support for the Sleep Again iOS app. Get help with your risk score, Apple Watch setup, book pass redemption, and subscription.">
+  <title>Support | Sleep Again</title>
+  <link rel="canonical" href="https://sleepagain.co/support">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=9">
+  <style>
+    .support-header {
+      padding: 3rem 0 1rem;
+      text-align: center;
+    }
+    .support-header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    .support-header p {
+      color: #555;
+      font-size: 1.05rem;
+    }
+    .contact-card {
+      max-width: 560px;
+      margin: 2rem auto 3rem;
+      background: #f8f6f3;
+      border: 1px solid #e0ddd8;
+      border-radius: 6px;
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+    .contact-card p {
+      margin: 0.25rem 0;
+      color: #444;
+      line-height: 1.6;
+    }
+    .contact-card a {
+      color: #1B2340;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .contact-card a:hover {
+      text-decoration: underline;
+    }
+    .contact-card .response-note {
+      font-size: 0.85rem;
+      color: #888;
+      margin-top: 0.5rem;
+    }
+    .faq-group-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1B2340;
+      margin-bottom: 0.25rem;
+    }
+    .step-list {
+      counter-reset: steps;
+      list-style: none;
+      padding: 0;
+      margin: 0.75rem 0 0.5rem;
+    }
+    .step-list li {
+      counter-increment: steps;
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+      color: #333;
+    }
+    .step-list li::before {
+      content: counter(steps);
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      background: #1B2340;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+    code {
+      background: #eeebe6;
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement-bar">
+    New book by <strong>Joakim Achr&eacute;n</strong> · Coming April 9th, 2026
+  </div>
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">Sleep Again</a>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="chapters.html">Chapters</a></li>
+          <li><a href="author.html">Author</a></li>
+          <li class="nav-dropdown">
+            <a href="#" class="dropdown-toggle">Resources</a>
+            <ul class="dropdown-menu">
+              <li><a href="blog/index.html">Articles</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+
+        <div class="support-header">
+          <h1>Sleep Again App Support</h1>
+          <p>Help with the iOS app. For questions about the book, see the <a href="faq.html">FAQ</a>.</p>
+        </div>
+
+        <div class="contact-card">
+          <p><strong>Email support</strong></p>
+          <p><a href="mailto:joakim.achren@gmail.com">joakim.achren@gmail.com</a></p>
+          <p class="response-note">Replies within 1–2 business days.</p>
+        </div>
+
+        <div style="max-width: 720px; margin: 0 auto;">
+
+          <div class="faq-group">
+            <h2 class="faq-group-title">Risk Score</h2>
+
+            <div class="faq-item">
+              <h3>Why isn't my risk score showing?</h3>
+              <p>The app needs at least 7 nights of sleep data in Apple Health to calculate a meaningful score. If you just started wearing an Apple Watch or recently enabled sleep tracking, give it a week and check back.</p>
+              <p>Also confirm that Apple Health permissions are enabled: <code>Settings &rarr; Health &rarr; Data Access &amp; Devices &rarr; Sleep Again</code>. Make sure HRV, heart rate, and sleep data are all toggled on.</p>
+            </div>
+
+            <div class="faq-item">
+              <h3>What does the risk score mean?</h3>
+              <p>The score is an estimate of how likely you are to wake up earlier than intended tonight, based on your HRV, resting heart rate, and recent sleep history. A high score doesn't guarantee you'll wake up, and a low score doesn't guarantee uninterrupted sleep. It's a pattern signal, not a prediction. Use it to notice trends over time, not to judge any single night.</p>
+            </div>
+          </div>
+
+          <div class="faq-group">
+            <h2 class="faq-group-title">Devices and Data</h2>
+
+            <div class="faq-item">
+              <h3>What devices does the app work with?</h3>
+              <p>Sleep Again works with any device that writes to Apple Health. For the most accurate risk scores, an Apple Watch is recommended — it records HRV and detailed heart rate data automatically while you sleep.</p>
+              <p>If you don't have an Apple Watch, the app can use sleep data from other HealthKit-compatible wearables (Oura, Garmin, Whoop, etc.) or iPhone-based sleep tracking. HRV data will be limited without a wearable.</p>
+            </div>
+
+            <div class="faq-item">
+              <h3>Does the app store my health data?</h3>
+              <p>No. All processing happens on your device. HRV, heart rate, and sleep stage data are read from HealthKit locally and never uploaded to any server. See the <a href="privacy.html">Privacy Policy</a> for full details.</p>
+            </div>
+          </div>
+
+          <div class="faq-group">
+            <h2 class="faq-group-title">Book Pass Redemption</h2>
+
+            <div class="faq-item">
+              <h3>How do I redeem my book pass?</h3>
+              <p>When you buy the Sleep Again ebook + audiobook bundle, you receive an email with a QR code and a text code. Here's how to redeem it:</p>
+              <ol class="step-list">
+                <li>Download Sleep Again from the App Store (free).</li>
+                <li>Open the app. On the subscription screen, tap <strong>Redeem a pass</strong>.</li>
+                <li>Scan the QR code from your purchase email, or tap <strong>Enter code manually</strong> and type the code.</li>
+                <li>Your 3-month pass activates immediately.</li>
+              </ol>
+              <p>You can also access <strong>Redeem a pass</strong> later via <code>Settings</code> inside the app.</p>
+            </div>
+
+            <div class="faq-item">
+              <h3>I can't find my redemption email.</h3>
+              <p>Check your spam or promotions folder for an email with the subject "Your 3-month Sleep Again pass." It's sent automatically after your purchase is confirmed. If you still can't find it, email <a href="mailto:joakim.achren@gmail.com">joakim.achren@gmail.com</a> with your order confirmation and I'll resend it.</p>
+            </div>
+
+            <div class="faq-item">
+              <h3>My code says it's already been redeemed.</h3>
+              <p>Each code is single-use and tied to one Apple ID. If you switched devices or Apple accounts, check the original device first. If you believe there's an error, email <a href="mailto:joakim.achren@gmail.com">joakim.achren@gmail.com</a> with your order details.</p>
+            </div>
+          </div>
+
+          <div class="faq-group">
+            <h2 class="faq-group-title">Subscription</h2>
+
+            <div class="faq-item">
+              <h3>How do I cancel my subscription?</h3>
+              <p>Subscriptions are managed by Apple, not by Sleep Again. To cancel:</p>
+              <ol class="step-list">
+                <li>Open <strong>Settings</strong> on your iPhone.</li>
+                <li>Tap your name at the top.</li>
+                <li>Tap <strong>Subscriptions</strong>.</li>
+                <li>Tap <strong>Sleep Again</strong> and then <strong>Cancel Subscription</strong>.</li>
+              </ol>
+              <p>Cancellation takes effect at the end of your current billing period. You keep access until then.</p>
+            </div>
+
+            <div class="faq-item">
+              <h3>I was charged but the app shows I'm not subscribed.</h3>
+              <p>Open the app and go to <code>Settings &rarr; Restore Purchases</code>. This syncs your purchase status with Apple. If the issue persists after restoring, email <a href="mailto:joakim.achren@gmail.com">joakim.achren@gmail.com</a>.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-main">
+          <h3>Sleep Again</h3>
+          <p>A book about reclaiming rest without giving up your ambitions.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="about.html">About the Book</a></li>
+            <li><a href="chapters.html">Chapters</a></li>
+            <li><a href="author.html">Author</a></li>
+            <li><a href="blog/index.html">Articles</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="support.html">App Support</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Joakim Achr&eacute;n. All rights reserved. &middot; <a href="privacy.html">Privacy</a> &middot; <a href="terms.html">Terms</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=3"></script>
+</body>
+</html>
