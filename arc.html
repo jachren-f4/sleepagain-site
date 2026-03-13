@@ -79,25 +79,11 @@
             <p>Sleep Again is a 27-chapter guide for entrepreneurs who sleep badly. It covers the science of why founders are more vulnerable to sleep problems, and what actually works to fix it. Written after a burnout in 2019 and two years of research.</p>
           </div>
 
-          <form id="arc-form" style="background: #f8f7f4; border-radius: 8px; padding: 2rem;">
-            <h3 style="margin-top: 0; margin-bottom: 1.25rem;">Sign up for an advance copy</h3>
-
-            <div style="margin-bottom: 1rem;">
-              <label for="name" style="display: block; font-size: 0.9rem; margin-bottom: 0.35rem; color: #444;">Your name</label>
-              <input type="text" id="name" name="name" required placeholder="First and last name"
-                style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; font-size: 1rem; box-sizing: border-box;">
-            </div>
-
-            <div style="margin-bottom: 1.5rem;">
-              <label for="email" style="display: block; font-size: 0.9rem; margin-bottom: 0.35rem; color: #444;">Your email</label>
-              <input type="email" id="email" name="email" required placeholder="you@example.com"
-                style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; font-size: 1rem; box-sizing: border-box;">
-            </div>
-
-            <button type="submit" id="arc-submit" class="btn btn-primary" style="width: 100%;" data-umami-event="arc-signup">Request my free copy</button>
-            <p id="arc-error" style="display:none; font-size: 0.85rem; color: #c0392b; margin-top: 0.75rem; margin-bottom: 0; text-align: center;">Something went wrong. Please try again.</p>
-            <p style="font-size: 0.82rem; color: #888; margin-top: 0.85rem; margin-bottom: 0; text-align: center;">I'll follow up by email with your copy in early March.</p>
-          </form>
+          <div style="background: #f8f7f4; border-radius: 8px; padding: 2rem; text-align: center;">
+            <h3 style="margin-top: 0; margin-bottom: 1rem;">ARC signups are now closed</h3>
+            <p style="margin-bottom: 1rem;">Thank you to everyone who signed up as an advance reader. All copies have been sent and the book launches April 9.</p>
+            <p style="margin-bottom: 0;"><a href="index.html" class="btn btn-primary" style="display: inline-block;">Join the waitlist instead</a></p>
+          </div>
 
         </div>
       </div>
@@ -140,37 +126,5 @@
   </footer>
 
   <script src="js/main.js?v=3"></script>
-  <script>
-    document.getElementById('arc-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      var btn = document.getElementById('arc-submit');
-      var err = document.getElementById('arc-error');
-      var name = document.getElementById('name').value.trim();
-      var email = document.getElementById('email').value.trim();
-
-      btn.textContent = 'Sending…';
-      btn.disabled = true;
-      err.style.display = 'none';
-
-      fetch('https://api.convertkit.com/v3/forms/9110349/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ api_key: 'DUyq416rGUL_qxk-o1jLlQ', email: email, first_name: name.split(' ')[0], tags: [16319185] })
-      })
-      .then(function(res) {
-        if (res.ok || res.status === 200 || res.status === 201) {
-          if (window.umami) umami.track('arc-signup-complete');
-          window.location.href = 'https://sleepagain.co/arc-thank-you.html';
-        } else {
-          throw new Error('API error ' + res.status);
-        }
-      })
-      .catch(function() {
-        btn.textContent = 'Request my free copy';
-        btn.disabled = false;
-        err.style.display = 'block';
-      });
-    });
-  </script>
 </body>
 </html>
