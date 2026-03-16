@@ -1,0 +1,24 @@
+name: Daily KPI Report
+
+on:
+  schedule:
+    # 6:00 UTC = 8:00 EET (winter) / 9:00 EEST (summer)
+    - cron: '0 6 * * *'
+  workflow_dispatch: # allow manual trigger
+
+jobs:
+  send-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Send daily KPI email
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          UMAMI_PASSWORD: ${{ secrets.UMAMI_PASSWORD }}
+          KIT_V3_API_SECRET: ${{ secrets.KIT_V3_API_SECRET }}
+        run: node tools/daily-report.js
