@@ -122,11 +122,8 @@
           <div style="margin-top: 3rem; padding: 2rem; background-color: #f8f9fa; border-radius: 8px; text-align: center;">
             <h3 style="margin-bottom: 1rem;">Get the Book</h3>
             <p style="margin-bottom: 1.5rem;">Sleep Again launches April 9, 2026.</p>
-            <form class="waitlist-form" action="https://api.web3forms.com/submit" method="POST" style="justify-content: center; margin: 0 auto;">
-              <input type="hidden" name="access_key" value="27643981-3bb1-40e1-9081-c61680bfa8a2">
-              <input type="hidden" name="subject" value="New Sleep Again Waitlist Signup">
-              <input type="hidden" name="redirect" value="https://sleepagain.co/podcast.html?subscribed=true">
-              <input type="email" name="email" placeholder="Enter your email" required>
+            <form id="podcast-waitlist-form" class="waitlist-form" style="justify-content: center; margin: 0 auto;">
+              <input id="podcast-waitlist-email" type="email" placeholder="Enter your email" required>
               <button type="submit" class="btn btn-primary" data-umami-event="waitlist-signup" data-umami-event-location="podcast">Get Notified</button>
             </form>
           </div>
@@ -172,5 +169,35 @@
   </footer>
 
   <script src="js/main.js?v=3"></script>
+  <script>
+  function submitWaitlist(email, btn, redirectPath) {
+    btn.disabled = true;
+    var originalText = btn.textContent;
+    btn.textContent = 'Sending…';
+    fetch('https://api.convertkit.com/v3/forms/9118264/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ api_key: 'DUyq416rGUL_qxk-o1jLlQ', email: email, tags: [16407733] })
+    })
+    .then(function(res) {
+      if (res.ok || res.status === 200 || res.status === 201) {
+        window.location.href = redirectPath;
+      } else {
+        throw new Error('API error ' + res.status);
+      }
+    })
+    .catch(function() {
+      btn.textContent = originalText;
+      btn.disabled = false;
+    });
+  }
+
+  document.getElementById('podcast-waitlist-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = document.getElementById('podcast-waitlist-email').value.trim();
+    var btn = this.querySelector('button[type="submit"]');
+    submitWaitlist(email, btn, 'https://sleepagain.co/podcast.html?subscribed=true');
+  });
+  </script>
 </body>
 </html>
