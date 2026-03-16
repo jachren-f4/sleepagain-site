@@ -106,18 +106,18 @@ async function fetchUmami(date) {
 
     return {
       today: todayStats ? {
-        pageviews: todayStats.pageviews?.value ?? 0,
-        visitors: todayStats.visitors?.value ?? 0,
-        bounces: todayStats.bounces?.value ?? 0,
-        visits: todayStats.visits?.value ?? 0
+        pageviews: todayStats.pageviews ?? 0,
+        visitors: todayStats.visitors ?? 0,
+        bounces: todayStats.bounces ?? 0,
+        visits: todayStats.visits ?? 0
       } : null,
       last7d: weekStats ? {
-        pageviews: weekStats.pageviews?.value ?? 0,
-        visitors: weekStats.visitors?.value ?? 0
+        pageviews: weekStats.pageviews ?? 0,
+        visitors: weekStats.visitors ?? 0
       } : null,
       last30d: monthStats ? {
-        pageviews: monthStats.pageviews?.value ?? 0,
-        visitors: monthStats.visitors?.value ?? 0
+        pageviews: monthStats.pageviews ?? 0,
+        visitors: monthStats.visitors ?? 0
       } : null,
       topPages: topPages.slice(0, 5),
       topReferrers: topReferrers.filter(r => r.x).slice(0, 5)
