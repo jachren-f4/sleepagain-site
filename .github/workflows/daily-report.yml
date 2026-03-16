@@ -2,8 +2,8 @@ name: Daily KPI Report
 
 on:
   schedule:
-    # 6:00 UTC = 8:00 EET (winter) / 9:00 EEST (summer)
-    - cron: '0 6 * * *'
+    # 8:10 UTC = 10:10 EET (winter) / 11:10 EEST (summer)
+    - cron: '10 8 * * *'
   workflow_dispatch: # allow manual trigger
 
 jobs:
