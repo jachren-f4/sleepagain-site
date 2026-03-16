@@ -23,8 +23,8 @@ const RESEND_API_KEY = process.env.RESEND_API_KEY
 const UMAMI_PASSWORD = process.env.UMAMI_PASSWORD
 const KIT_V3_API_SECRET = process.env.KIT_V3_API_SECRET
 const UMAMI_USERNAME = process.env.UMAMI_USERNAME || 'admin'
-const REPORT_EMAIL = process.env.REPORT_EMAIL || 'joakim@f4.fund'
-const RESEND_FROM = process.env.RESEND_FROM || 'Sleep Again <onboarding@resend.dev>'
+const REPORT_EMAIL = process.env.REPORT_EMAIL || 'joakim.achren@gmail.com'
+const RESEND_FROM = process.env.RESEND_FROM || 'Sleep Again <joakim@joakimachren.com>'
 
 const DRY_RUN = process.argv.includes('--dry-run')
 const dateArg = process.argv.indexOf('--date')
