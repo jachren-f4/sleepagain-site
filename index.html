@@ -104,7 +104,7 @@
             <p class="hero-description">
               A practical guide for entrepreneurs who've sacrificed sleep for success, and are ready to reclaim it without sacrificing their ambitions.
             </p>
-            <!-- PRE-ORDER: Uncomment the block below and remove the waitlist form once pre-orders are live (target: Mar 10-16) -->
+            <!-- PRE-ORDER: Uncomment the block below and remove the free chapter form once pre-orders are live -->
             <!--
             <div class="pre-order-links" style="margin-top: 1.5rem;">
               <a href="AMAZON_PREORDER_URL" class="btn btn-primary" data-umami-event="pre-order-click" data-umami-event-platform="amazon">Pre-Order on Amazon — $2.99</a>
@@ -115,11 +115,11 @@
             </div>
             <p class="form-note">Launch price: $2.99 (first week only). Paperback $16.99. Hardcover $27.99.</p>
             -->
-            <form id="hero-waitlist-form" class="waitlist-form">
-              <input type="email" id="hero-waitlist-email" placeholder="Enter your email" required>
-              <button type="submit" class="btn btn-primary" data-umami-event="waitlist-signup" data-umami-event-location="hero">Get Notified</button>
+            <form id="hero-free-chapter-form" class="waitlist-form">
+              <input type="email" id="hero-free-chapter-email" placeholder="Enter your email" required>
+              <button type="submit" class="btn btn-primary" data-umami-event="free-chapter-signup" data-umami-event-location="hero">Get the free chapter</button>
             </form>
-            <p class="form-note">Be the first to know when the book launches. No spam, ever.</p>
+            <p class="form-note">Get Chapter 1 as an MP3. We'll send the download link to your inbox.</p>
             <div class="social-links" style="margin-top: 1.5rem;">
               <a href="https://x.com/joakim_a" target="_blank" rel="noopener" aria-label="Follow on X">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -151,16 +151,6 @@
           <path d="M40 200C40 111.634 111.634 40 200 40" stroke="url(#fadeGradient)" stroke-width="2"/>
           <path d="M80 200C80 133.726 133.726 80 200 80" stroke="url(#fadeGradient)" stroke-width="2"/>
         </svg>
-      </div>
-    </section>
-
-    <section class="section" style="padding-bottom: 0;">
-      <div class="container">
-        <div style="max-width: 600px; margin: 0 auto; text-align: center; background: #f8f7f4; border-radius: 8px; padding: 2rem;">
-          <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Listen to a free chapter</h2>
-          <p style="margin-bottom: 1.25rem;">Hear Chapter 1 of the audiobook. Learn why entrepreneurs sleep worse than everyone else.</p>
-          <a href="free-chapter.html" class="btn btn-primary" data-umami-event="free-chapter-cta" data-umami-event-location="homepage">Get the free chapter</a>
-        </div>
       </div>
     </section>
 
@@ -268,18 +258,18 @@
 
   <script src="js/main.js?v=3"></script>
   <script>
-  function submitWaitlist(email, btn, redirectPath) {
+  function submitToKit(email, tags, btn, onSuccess) {
     btn.disabled = true;
     var originalText = btn.textContent;
     btn.textContent = 'Sending…';
     fetch('https://api.convertkit.com/v3/forms/9118264/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ api_key: 'DUyq416rGUL_qxk-o1jLlQ', email: email, tags: [16407733] })
+      body: JSON.stringify({ api_key: 'DUyq416rGUL_qxk-o1jLlQ', email: email, tags: tags })
     })
     .then(function(res) {
       if (res.ok || res.status === 200 || res.status === 201) {
-        window.location.href = redirectPath;
+        onSuccess();
       } else {
         throw new Error('API error ' + res.status);
       }
@@ -290,58 +280,29 @@
     });
   }
 
-  document.getElementById('hero-waitlist-form').addEventListener('submit', function(e) {
+  document.getElementById('hero-free-chapter-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    var email = document.getElementById('hero-waitlist-email').value.trim();
-    var btn = this.querySelector('button[type="submit"]');
-    var variant = window._abVariant || 'A';
-    submitWaitlist(email, btn, 'https://sleepagain.co/?subscribed=true&variant=' + variant);
+    var form = this;
+    var email = document.getElementById('hero-free-chapter-email').value.trim();
+    var btn = form.querySelector('button[type="submit"]');
+    submitToKit(email, [17583277, 16407733], btn, function() {
+      var note = form.nextElementSibling;
+      if (note) note.remove();
+      var success = document.createElement('div');
+      success.className = 'subscription-success';
+      success.innerHTML = '<p><strong>Check your email!</strong></p><p>We\'ve sent you the download link for Chapter 1.</p>';
+      form.replaceWith(success);
+    });
   });
 
   document.getElementById('footer-waitlist-form').addEventListener('submit', function(e) {
     e.preventDefault();
     var email = document.getElementById('footer-waitlist-email').value.trim();
     var btn = this.querySelector('button[type="submit"]');
-    submitWaitlist(email, btn, 'https://sleepagain.co/?subscribed=true');
+    submitToKit(email, [16407733], btn, function() {
+      window.location.href = 'https://sleepagain.co/?subscribed=true';
+    });
   });
-  </script>
-  <script>
-  (function() {
-    // A/B test: assign variant and persist in localStorage
-    var v = localStorage.getItem('ab_variant');
-    if (!v) {
-      v = Math.random() < 0.5 ? 'A' : 'B';
-      localStorage.setItem('ab_variant', v);
-    }
-
-    // Apply variant B changes
-    if (v === 'B') {
-      var desc = document.querySelector('.hero-description');
-      if (desc) desc.textContent = "You\u2019re not lazy. You\u2019re wired wrong for sleep. This book fixes that.";
-
-      var btn = document.querySelector('.hero .btn-primary');
-      if (btn) btn.textContent = 'Count me in';
-    }
-
-    // Expose variant for form handlers
-    window._abVariant = v;
-
-    // Tag all signup buttons with variant
-    var btns = document.querySelectorAll('[data-umami-event="waitlist-signup"]');
-    for (var j = 0; j < btns.length; j++) {
-      btns[j].setAttribute('data-umami-event-variant', v);
-    }
-
-    // Track variant on page view
-    function sendView() { umami.track('ab-pageview', { variant: v }); }
-    if (window.umami) { sendView(); }
-    else {
-      var i = setInterval(function() {
-        if (window.umami) { sendView(); clearInterval(i); }
-      }, 200);
-      setTimeout(function() { clearInterval(i); }, 5000);
-    }
-  })();
   </script>
 </body>
 </html>
