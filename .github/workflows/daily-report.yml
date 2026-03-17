@@ -21,4 +21,5 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           UMAMI_PASSWORD: ${{ secrets.UMAMI_PASSWORD }}
           KIT_V3_API_SECRET: ${{ secrets.KIT_V3_API_SECRET }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: node tools/daily-report.js
