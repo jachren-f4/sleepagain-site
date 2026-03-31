@@ -68,7 +68,7 @@
 </head>
 <body>
   <div class="announcement-bar">
-    New book by <strong>Joakim Achrén</strong> · Coming April 9th, 2026
+    New book by <strong>Joakim Achrén</strong> · Pre-order now — launches April 9th
   </div>
   <header>
     <div class="nav-container">
@@ -108,24 +108,9 @@
             <p class="hero-description">
               A practical guide for entrepreneurs who've sacrificed sleep for success, and are ready to reclaim it without sacrificing their ambitions.
             </p>
-            <!-- PRE-ORDER: Uncomment the block below and remove the free chapter form once pre-orders are live -->
-            <!--
             <div class="pre-order-links" style="margin-top: 1.5rem;">
-              <a href="AMAZON_PREORDER_URL" class="btn btn-primary" data-umami-event="pre-order-click" data-umami-event-platform="amazon">Pre-Order on Amazon — $2.99</a>
-              <div style="margin-top: 0.75rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="APPLE_PREORDER_URL" style="color: #555; text-decoration: underline;" data-umami-event="pre-order-click" data-umami-event-platform="apple">Apple Books</a>
-                <a href="LEMONSQUEEZY_URL" style="color: #555; text-decoration: underline;" data-umami-event="pre-order-click" data-umami-event-platform="direct">Buy Direct</a>
-              </div>
-            </div>
-            <p class="form-note">Launch price: $2.99 (first week only). Paperback $16.99. Hardcover $27.99.</p>
-            -->
-            <div style="background: #f8f7f4; border-radius: 8px; padding: 1.25rem 1.5rem; margin-top: 0.5rem;">
-              <p style="font-weight: 600; font-size: 1.1rem; margin-bottom: 0.75rem; color: var(--color-primary);">Listen to Chapter 1 free!</p>
-              <form id="hero-free-chapter-form" class="waitlist-form">
-                <input type="email" id="hero-free-chapter-email" placeholder="Enter your email" required>
-                <button type="submit" class="btn btn-primary" data-umami-event="free-chapter-signup" data-umami-event-location="hero">Get the free chapter</button>
-              </form>
-              <p class="form-note">We'll send the MP3 download link to your inbox.</p>
+              <a href="https://www.amazon.com/dp/B0GSQXWZF6" class="btn btn-primary" data-umami-event="pre-order-click" data-umami-event-platform="amazon" target="_blank" rel="noopener">Pre-Order on Amazon</a>
+              <p class="form-note" style="margin-top: 0.75rem;">Ebook $2.99 · Paperback $16.99 · Hardcover $27.99</p>
             </div>
             <div class="social-links" style="margin-top: 1.5rem;">
               <a href="https://x.com/joakim_a" target="_blank" rel="noopener" aria-label="Follow on X">
@@ -286,21 +271,6 @@
       btn.disabled = false;
     });
   }
-
-  document.getElementById('hero-free-chapter-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    var form = this;
-    var email = document.getElementById('hero-free-chapter-email').value.trim();
-    var btn = form.querySelector('button[type="submit"]');
-    submitToKit(email, [17583277, 16407733], btn, function() {
-      var note = form.nextElementSibling;
-      if (note) note.remove();
-      var success = document.createElement('div');
-      success.className = 'subscription-success';
-      success.innerHTML = '<p><strong>Check your email!</strong></p><p>We\'ve sent you the download link for Chapter 1.</p>';
-      form.replaceWith(success);
-    });
-  });
 
   document.getElementById('footer-waitlist-form').addEventListener('submit', function(e) {
     e.preventDefault();
