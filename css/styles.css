@@ -595,6 +595,25 @@ nav a.active::after {
   margin-bottom: 0;
 }
 
+.read-more {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  background-color: var(--color-primary);
+  color: var(--color-background);
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.read-more:hover {
+  background-color: var(--color-accent);
+  color: var(--color-background);
+  text-decoration: none;
+}
+
 /* Chapters Page */
 .chapters-toc {
   max-width: 800px;
@@ -897,7 +916,7 @@ footer {
 
   .hero-text {
     max-width: 100%;
-    order: 2;
+    order: 1;
   }
 
   .hero-text h1 {
@@ -921,11 +940,21 @@ footer {
   }
 
   .hero-image {
-    order: 1;
+    order: 2;
   }
 
   .book-cover {
-    max-width: 330px;
+    max-width: 280px;
+  }
+
+  /* Center secondary buy links and hero social icons on mobile
+     (parent text-align: center doesn't reach flex children) */
+  .secondary-buy-links {
+    justify-content: center;
+  }
+
+  .hero .social-links {
+    justify-content: center;
   }
 
   .waitlist-form {
