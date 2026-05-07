@@ -63,247 +63,1409 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=11">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,300;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
   <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+
+  <style>
+    /* ── Tokens ───────────────────────────────────────────────────── */
+    :root {
+      --ink: #0B1A2C;
+      --ink-soft: rgba(11, 26, 44, 0.66);
+      --ink-faint: rgba(11, 26, 44, 0.32);
+      --paper: #EFEEEA;
+      --paper-warm: #F5F2EA;
+      --paper-deep: #E8E4D7;
+      --rule: rgba(11, 26, 44, 0.18);
+      --accent: #B6552B;
+      --serif: 'Source Serif 4', 'Source Serif Pro', Georgia, serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+    body {
+      font-family: var(--serif);
+      color: var(--ink);
+      background: var(--paper);
+      font-feature-settings: "ss01", "ss02", "kern", "liga";
+      line-height: 1.55;
+      font-weight: 400;
+      padding-bottom: 96px;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+
+    a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; transition: color .2s ease; }
+    a:hover { color: var(--accent); }
+
+    /* ── Masthead ────────────────────────────────────────────────── */
+    .masthead {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1.4rem 2rem 1.2rem;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: baseline;
+      gap: 2rem;
+    }
+    .masthead-meta { justify-self: start; }
+    .masthead nav { justify-self: end; }
+    .masthead-meta {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      font-weight: 500;
+    }
+    .wordmark {
+      font-size: 1.55rem;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      text-decoration: none;
+      line-height: 1;
+    }
+    .wordmark em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--ink-soft);
+    }
+    .masthead nav {
+      display: flex;
+      gap: 1.6rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .masthead nav a { text-decoration: none; color: var(--ink-soft); }
+    .masthead nav a:hover { color: var(--accent); }
+
+    @media (max-width: 760px) {
+      .masthead {
+        grid-template-columns: 1fr auto;
+        padding: 1rem 1.25rem 0.9rem;
+        gap: 0.8rem;
+        align-items: baseline;
+      }
+      .masthead-meta { font-size: 0.65rem; }
+      .masthead nav {
+        grid-column: 1 / -1;
+        justify-self: stretch;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-top: 0.6rem;
+        border-top: 1px solid var(--rule);
+        font-size: 0.72rem;
+      }
+    }
+
+    .double-rule {
+      max-width: 1280px;
+      margin: 0 auto;
+      border-top: 1px solid var(--ink);
+      border-bottom: 4px solid var(--ink);
+      height: 4px;
+    }
+
+    /* ── Page container ─────────────────────────────────────────── */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    @media (max-width: 760px) {
+      .container { padding: 0 1.25rem; }
+    }
+
+    /* ── Hero ───────────────────────────────────────────────────── */
+    .hero {
+      padding: 3rem 0 4.5rem;
+      position: relative;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 4rem;
+      align-items: end;
+    }
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .hero-eyebrow::before {
+      content: "";
+      width: 32px;
+      height: 1px;
+      background: var(--accent);
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 4.4vw, 4.4rem);
+      font-weight: 400;
+      line-height: 1.04;
+      letter-spacing: -0.022em;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--ink-soft);
+    }
+    .hero-lede {
+      font-size: 1.12rem;
+      line-height: 1.5;
+      max-width: 38ch;
+      color: var(--ink);
+      margin-bottom: 1.75rem;
+    }
+    .hero-cta-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      align-items: flex-start;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      padding: 1rem 1.6rem;
+      background: var(--ink);
+      color: var(--paper);
+      text-decoration: none;
+      font-family: var(--serif);
+      font-size: 1.02rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      transition: background .2s ease, transform .2s ease;
+      border: 1px solid var(--ink);
+    }
+    .btn-primary:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--paper);
+      transform: translateY(-1px);
+    }
+    .btn-primary .price {
+      font-style: italic;
+      color: rgba(239, 238, 234, 0.7);
+      font-weight: 400;
+    }
+    .btn-primary .arrow {
+      font-style: italic;
+      transform: translateX(0);
+      transition: transform .2s ease;
+    }
+    .btn-primary:hover .arrow { transform: translateX(3px); }
+
+    .secondary-formats {
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+      letter-spacing: 0.005em;
+      max-width: 38ch;
+      line-height: 1.7;
+    }
+    .secondary-formats a {
+      color: var(--ink-soft);
+      text-decoration: underline;
+      text-decoration-thickness: 0.5px;
+      text-underline-offset: 3px;
+    }
+    .secondary-formats a:hover { color: var(--accent); }
+
+    /* Book still-life */
+    .hero-book {
+      position: relative;
+      max-width: 420px;
+    }
+    .hero-book img {
+      width: 100%;
+      box-shadow: 0 24px 48px rgba(11, 26, 44, 0.18), 0 8px 16px rgba(11, 26, 44, 0.10);
+      transform: rotate(-1.2deg);
+    }
+    .hero-book-caption {
+      margin-top: 1.4rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      font-weight: 500;
+    }
+
+    @media (max-width: 900px) {
+      .hero { padding: 3rem 0 4rem; }
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .hero-book {
+        margin: 0;
+        max-width: 240px;
+      }
+      .hero-book-caption { text-align: left; }
+    }
+
+    /* ── Pull-quote band ─────────────────────────────────────────── */
+    .quote-band {
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding: 5rem 0;
+      background: var(--paper-warm);
+    }
+    .quote-band blockquote {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      font-size: clamp(1.55rem, 3.4vw, 2.5rem);
+      line-height: 1.28;
+      font-style: italic;
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      text-align: center;
+    }
+    .quote-band blockquote::before {
+      content: "“";
+      display: block;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 4rem;
+      line-height: 0.5;
+      margin-bottom: 1.8rem;
+      color: var(--accent);
+    }
+    .quote-band cite {
+      display: block;
+      margin-top: 2.2rem;
+      font-style: normal;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      font-weight: 500;
+    }
+    .quote-band cite strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* Star rating */
+    .stars {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      vertical-align: -2px;
+      color: var(--accent);
+    }
+    .stars svg {
+      width: 14px;
+      height: 14px;
+      display: block;
+    }
+
+    /* ── Section: about ──────────────────────────────────────────── */
+    .section { padding: 6rem 0; }
+    .section-rule {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .section-rule::before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: var(--ink);
+      margin: 0;
+    }
+    .section-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      padding-top: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .section-label .num {
+      color: var(--accent);
+      font-weight: 600;
+      font-style: italic;
+    }
+    .section h2 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+      max-width: 18ch;
+    }
+    .section h2 em {
+      font-style: italic;
+      color: var(--ink-soft);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 4.5rem;
+      align-items: start;
+    }
+    .author-card {
+      position: sticky;
+      top: 2rem;
+    }
+    .author-card .section-label {
+      padding-top: 1.2rem;
+      margin-bottom: 1.4rem;
+    }
+    .author-card h2 {
+      font-size: clamp(1.75rem, 2.6vw, 2.6rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.018em;
+      margin-bottom: 2rem;
+      max-width: none;
+    }
+    .author-card h2 em {
+      font-style: italic;
+      color: var(--ink-soft);
+    }
+    .author-portrait {
+      width: 100%;
+      max-width: 240px;
+      filter: grayscale(0%);
+    }
+    .author-portrait img {
+      width: 100%;
+      border-radius: 2px;
+    }
+    .author-card-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      font-weight: 600;
+      margin-top: 1.4rem;
+      margin-bottom: 0.4rem;
+    }
+    .author-card-name {
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+    .author-card-credentials {
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+      line-height: 1.55;
+      margin-top: 0.45rem;
+    }
+    .author-card-credentials em {
+      font-style: italic;
+      color: var(--ink);
+    }
+    .about-prose {
+      font-size: 1.18rem;
+      line-height: 1.65;
+      max-width: 56ch;
+      padding-top: 3rem;
+    }
+    .about-prose p { margin-bottom: 1.4rem; }
+    .about-prose p.lede {
+      font-size: 1.32rem;
+      color: var(--ink);
+      line-height: 1.45;
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+    .about-prose p.lede em {
+      font-style: italic;
+      color: var(--ink-soft);
+    }
+    .about-prose p.lede::first-letter {
+      float: left;
+      font-size: 4.6rem;
+      line-height: 0.85;
+      padding-right: 0.7rem;
+      padding-top: 0.3rem;
+      font-weight: 400;
+      color: var(--accent);
+    }
+
+    @media (max-width: 900px) {
+      .section { padding: 4rem 0; }
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .author-card { position: static; }
+      .author-portrait { max-width: 180px; }
+    }
+
+    /* ── Readers ──────────────────────────────────────────────── */
+    .readers {
+      background: var(--paper-deep);
+    }
+    .readers-header {
+      margin-bottom: 2.5rem;
+      max-width: 720px;
+    }
+    .readers-meta {
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      padding-top: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .readers-meta .num { color: var(--accent); font-style: italic; }
+    .readers h2 {
+      font-size: clamp(1.9rem, 3vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.2rem;
+    }
+    .readers h2 em { font-style: italic; color: var(--ink-soft); }
+    .readers-deck {
+      font-size: 1.08rem;
+      line-height: 1.55;
+      color: var(--ink-soft);
+    }
+
+    .reader-letters {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 4rem;
+      row-gap: 2.6rem;
+    }
+    .reader-letter {
+      padding-top: 1.4rem;
+      border-top: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 1.1rem;
+      align-items: start;
+    }
+    .reader-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--paper);
+      border: 1px solid rgba(11, 26, 44, 0.12);
+      flex-shrink: 0;
+    }
+    .reader-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .reader-initials {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      font-family: var(--serif);
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--ink-soft);
+      text-transform: uppercase;
+    }
+    .reader-letter p {
+      font-size: 1.08rem;
+      line-height: 1.55;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+    .reader-letter cite {
+      font-style: normal;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      font-weight: 600;
+      display: block;
+    }
+    .reader-letter cite strong {
+      color: var(--ink);
+    }
+    @media (max-width: 760px) {
+      .reader-letter { grid-template-columns: 44px 1fr; gap: 0.9rem; }
+      .reader-avatar { width: 40px; height: 40px; }
+    }
+
+    @media (max-width: 760px) {
+      .reader-letters { column-count: 1; }
+    }
+
+    /* ── Inside the book ─────────────────────────────────────── */
+    .inside {
+      padding: 6rem 0;
+    }
+    .inside-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .inside-cover img {
+      width: 100%;
+      max-width: 460px;
+      box-shadow: 0 32px 56px rgba(11, 26, 44, 0.16);
+    }
+    .inside h2 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 2.4rem;
+      max-width: 18ch;
+    }
+    .inside h2 em { font-style: italic; color: var(--ink-soft); }
+    .inside-list {
+      list-style: none;
+    }
+    .inside-list li {
+      padding: 1.4rem 0;
+      border-top: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 1.4rem;
+      align-items: baseline;
+    }
+    .inside-list li:last-child {
+      border-bottom: 1px solid var(--rule);
+    }
+    .inside-list .num {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      font-style: italic;
+      font-weight: 500;
+    }
+    .inside-list h3 {
+      font-size: 1.18rem;
+      font-weight: 500;
+      letter-spacing: -0.005em;
+      margin-bottom: 0.3rem;
+    }
+    .inside-list p {
+      font-size: 0.98rem;
+      color: var(--ink-soft);
+      line-height: 1.55;
+      max-width: 38ch;
+    }
+
+    @media (max-width: 900px) {
+      .inside-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .inside-cover { display: flex; justify-content: center; }
+      .inside-cover img { max-width: 240px; }
+    }
+
+    /* ── Closing CTA ─────────────────────────────────────────── */
+    .closing {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 6rem 0;
+      position: relative;
+    }
+    .closing-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .closing h2 {
+      font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      max-width: 14ch;
+      color: var(--paper);
+    }
+    .closing h2 em {
+      font-style: italic;
+      color: rgba(239, 238, 234, 0.78);
+    }
+    .closing-meta {
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(239, 238, 234, 0.78);
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .closing-meta .num { color: var(--accent); font-style: italic; }
+
+    .closing-cta-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.4rem;
+    }
+    .btn-primary-light {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      padding: 1.05rem 1.7rem;
+      background: var(--paper);
+      color: var(--ink);
+      text-decoration: none;
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      transition: background .2s ease, color .2s ease;
+      border: 1px solid var(--paper);
+    }
+    .btn-primary-light:hover {
+      background: var(--accent);
+      color: var(--paper);
+      border-color: var(--accent);
+    }
+    .btn-primary-light .price {
+      font-style: italic;
+      color: rgba(11, 26, 44, 0.55);
+      font-weight: 400;
+    }
+    .btn-primary-light:hover .price { color: rgba(239, 238, 234, 0.7); }
+
+    .closing-secondary {
+      font-size: 0.92rem;
+      color: rgba(239, 238, 234, 0.82);
+      line-height: 1.7;
+    }
+    .closing-secondary a {
+      color: var(--paper);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+    .closing-secondary a:hover { color: var(--accent); }
+
+    @media (max-width: 900px) {
+      .closing { padding: 4rem 0; }
+      .closing-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    /* ── Colophon ───────────────────────────────────────────── */
+    .colophon {
+      padding: 3rem 0 4rem;
+      border-top: 1px solid var(--rule);
+    }
+    .colophon-grid {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 1.4rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      color: var(--ink-soft);
+    }
+    .colophon-meta {
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 0.7rem;
+    }
+    .colophon a { color: var(--ink-soft); }
+
+    /* ── Sticky mobile CTA ─────────────────────────────── */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      box-shadow: 0 -4px 20px rgba(11, 26, 44, 0.18);
+      z-index: 50;
+      transform: translateY(110%);
+      transition: transform .3s cubic-bezier(.2,.7,.2,1);
+    }
+    .sticky-cta.is-visible { transform: translateY(0); }
+    .sticky-cta-text {
+      font-size: 0.88rem;
+      font-weight: 500;
+      flex-shrink: 1;
+      min-width: 0;
+    }
+    .sticky-cta-text em {
+      font-style: italic;
+      color: rgba(239, 238, 234, 0.6);
+      font-weight: 400;
+    }
+    .sticky-cta a {
+      flex-shrink: 0;
+      background: var(--paper);
+      color: var(--ink);
+      padding: 0.55rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.005em;
+      text-decoration: none;
+      transition: background .2s ease;
+    }
+    .sticky-cta a:hover { background: var(--accent); color: var(--paper); }
+
+    /* ── Load reveal ───────────────────────────────────────── */
+    @keyframes lift {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow { opacity: 0; animation: lift .8s ease forwards; animation-delay: .1s; }
+    .hero h1 { opacity: 0; animation: lift .9s ease forwards; animation-delay: .2s; }
+    .hero-lede { opacity: 0; animation: lift .8s ease forwards; animation-delay: .35s; }
+    .hero-cta-block { opacity: 0; animation: lift .8s ease forwards; animation-delay: .5s; }
+    .hero-book { opacity: 0; animation: lift 1s ease forwards; animation-delay: .25s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+
+    /* ── Footer (production: waitlist form + social + nav) ─ */
+    .site-footer {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 4rem 0 2.5rem;
+    }
+    .site-footer-grid {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .site-footer-main h3 {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: -0.012em;
+      margin-bottom: 0.4rem;
+    }
+    .site-footer-main h3 em { font-style: italic; font-weight: 400; color: rgba(239, 238, 234, 0.65); }
+    .site-footer-main p {
+      font-size: 0.98rem;
+      color: rgba(239, 238, 234, 0.72);
+      line-height: 1.55;
+      max-width: 44ch;
+      margin-bottom: 1.4rem;
+    }
+    .site-footer-social {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+    .site-footer-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(239, 238, 234, 0.22);
+      color: rgba(239, 238, 234, 0.72);
+      transition: color .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .site-footer-social a:hover {
+      color: var(--paper);
+      border-color: var(--paper);
+      background: rgba(239, 238, 234, 0.05);
+    }
+    .site-footer-social svg { width: 16px; height: 16px; fill: currentColor; }
+
+    .site-footer-form {
+      display: flex;
+      gap: 0.5rem;
+      max-width: 380px;
+    }
+    .site-footer-form input[type="email"] {
+      flex: 1;
+      padding: 0.7rem 0.9rem;
+      background: rgba(239, 238, 234, 0.08);
+      border: 1px solid rgba(239, 238, 234, 0.2);
+      color: var(--paper);
+      font-family: var(--serif);
+      font-size: 0.92rem;
+      letter-spacing: 0.005em;
+    }
+    .site-footer-form input[type="email"]::placeholder { color: rgba(239, 238, 234, 0.45); }
+    .site-footer-form input[type="email"]:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: rgba(239, 238, 234, 0.12);
+    }
+    .site-footer-form button {
+      padding: 0.7rem 1.1rem;
+      background: var(--paper);
+      color: var(--ink);
+      border: 1px solid var(--paper);
+      font-family: var(--serif);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .2s ease, border-color .2s ease, color .2s ease;
+    }
+    .site-footer-form button:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--paper);
+    }
+    .site-footer-form button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .site-footer-links h4 {
+      font-family: var(--serif);
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+    }
+    .site-footer-links ul { list-style: none; }
+    .site-footer-links li { padding: 0.35rem 0; }
+    .site-footer-links a {
+      color: rgba(239, 238, 234, 0.78);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color .2s ease;
+    }
+    .site-footer-links a:hover { color: var(--accent); }
+
+    .site-footer-bottom {
+      max-width: 1280px;
+      margin: 2.5rem auto 0;
+      padding: 2rem 2rem 0;
+      border-top: 1px solid rgba(239, 238, 234, 0.18);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 2rem;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      color: rgba(239, 238, 234, 0.5);
+    }
+    .site-footer-bottom .colophon-meta {
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .site-footer-bottom a { color: rgba(239, 238, 234, 0.78); text-decoration: underline; text-underline-offset: 3px; }
+    .site-footer-bottom a:hover { color: var(--accent); }
+
+    @media (max-width: 760px) {
+      .site-footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    /* ── CTA Variant A: Tiered cards ─────────────────────── */
+    .closing-v-a {
+      padding: 6rem 0;
+      background: var(--paper-warm);
+      border-top: 1px solid var(--rule);
+    }
+    .closing-v-a .deck {
+      font-size: 1.08rem;
+      color: var(--ink-soft);
+      max-width: 56ch;
+      margin-bottom: 3rem;
+    }
+    .tiers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      align-items: stretch;
+    }
+    .tier {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      padding: 2rem 1.75rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+    }
+    .tier.featured {
+      background: var(--ink);
+      color: var(--paper);
+      border: 1px solid var(--ink);
+      transform: translateY(-12px);
+    }
+    .tier-badge {
+      position: absolute;
+      top: -12px;
+      left: 1.75rem;
+      background: var(--accent);
+      color: var(--paper);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 0.3rem 0.7rem;
+    }
+    .tier-name {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      font-weight: 600;
+    }
+    .tier.featured .tier-name { color: rgba(239, 238, 234, 0.65); }
+    .tier-price {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-top: 0.2rem;
+    }
+    .tier-price .currency {
+      font-size: 1.4rem;
+      color: var(--ink-soft);
+      vertical-align: super;
+      font-weight: 300;
+    }
+    .tier.featured .tier-price .currency { color: rgba(239, 238, 234, 0.55); }
+    .tier-desc {
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+    .tier.featured .tier-desc { color: rgba(239, 238, 234, 0.72); }
+    .tier-includes {
+      list-style: none;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--ink);
+      padding: 0.4rem 0;
+      border-top: 1px solid var(--rule);
+      margin-top: 0.4rem;
+    }
+    .tier.featured .tier-includes {
+      color: var(--paper);
+      border-top-color: rgba(239, 238, 234, 0.18);
+    }
+    .tier-includes li { padding: 0.35rem 0; display: flex; gap: 0.5rem; }
+    .tier-includes li::before {
+      content: "→";
+      color: var(--accent);
+      font-style: italic;
+      flex-shrink: 0;
+    }
+    .tier-btn {
+      display: inline-flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.95rem 1.4rem;
+      font-family: var(--serif);
+      font-size: 0.98rem;
+      font-weight: 500;
+      letter-spacing: 0.005em;
+      text-decoration: none;
+      transition: background .2s ease, color .2s ease, border-color .2s ease;
+      border: 1px solid var(--ink);
+      background: transparent;
+      color: var(--ink);
+      width: 100%;
+    }
+    .tier-btn:hover { background: var(--ink); color: var(--paper); }
+    .tier-btn.primary {
+      background: var(--paper);
+      color: var(--ink);
+      border-color: var(--paper);
+    }
+    .tier-btn.primary:hover { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+    .tier-btn .arrow { font-style: italic; transition: transform .2s ease; }
+    .tier-btn:hover .arrow { transform: translateX(2px); }
+
+    .closing-also {
+      margin-top: 2rem;
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+    .closing-also a { color: var(--ink-soft); text-decoration: underline; text-underline-offset: 3px; }
+    .closing-also a:hover { color: var(--accent); }
+
+    @media (max-width: 760px) {
+      .tiers { grid-template-columns: 1fr; gap: 1rem; }
+      .tier.featured { transform: none; }
+    }
+  </style>
 </head>
 <body>
-  <div class="announcement-bar">
-    New book by <strong>Joakim Achrén</strong> · Available now
-  </div>
-  <header>
-    <div class="nav-container">
-      <a href="index.html" class="logo">Sleep Again</a>
-      <button class="nav-toggle" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <nav>
-        <ul>
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="chapters.html">Chapters</a></li>
-          <li><a href="author.html">Author</a></li>
-          <li class="nav-dropdown">
-            <a href="#" class="dropdown-toggle">Resources</a>
-            <ul class="dropdown-menu">
-              <li><a href="blog/index.html">Articles</a></li>
-              <li><a href="faq.html">FAQ</a></li>
-            </ul>
-          </li>
-          <li><a href="/fi/" data-umami-event="lang-switch" data-umami-event-to="fi">Suomeksi</a></li>
-        </ul>
-      </nav>
-    </div>
+
+  <header class="masthead">
+    <div class="masthead-meta">No. 01 &nbsp;·&nbsp; First edition &nbsp;·&nbsp; 2026</div>
+    <a href="index.html" class="wordmark">Sleep <em>Again</em></a>
+    <nav>
+      <a href="about.html">About</a>
+      <a href="chapters.html">Chapters</a>
+      <a href="author.html">Author</a>
+      <a href="faq.html">FAQ</a>
+      <a href="/fi/" data-umami-event="lang-switch" data-umami-event-to="fi">Suomeksi</a>
+    </nav>
   </header>
+  <div class="container"><div class="double-rule"></div></div>
 
   <main>
+
+    <!-- Hero -->
     <section class="hero">
       <div class="container">
-        <div class="hero-content">
+        <div class="hero-grid">
           <div class="hero-text">
-            <h1>Sleep Again</h1>
-            <p class="hero-subtitle">Finding Rest in a World Built on Urgency</p>
-            <p class="hero-author">by Joakim Achrén</p>
-            <p class="hero-description">
-              A practical guide for entrepreneurs who've sacrificed sleep for success, and are ready to reclaim it without sacrificing their ambitions.
-            </p>
-            <div class="buy-links" style="margin-top: 1.5rem;">
-              <a href="https://achrenbooks.lemonsqueezy.com/checkout/buy/d4d24d5e-48b6-475e-a83a-e706df7ed66a" class="btn btn-primary lemonsqueezy-button" data-umami-event="buy-click" data-umami-event-product="bundle" data-umami-event-location="hero">Get the Bundle — €19.99</a>
-              <p class="form-note" style="margin-top: 0.75rem;">Ebook + Audiobook + 3-month iPhone app pass. <a href="#bundle">Learn more</a></p>
-              <div class="secondary-buy-links" style="margin-top: 0.75rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-                <a href="https://achrenbooks.lemonsqueezy.com/checkout/buy/77ff09ff-49a7-4aeb-a889-3bb36432f841" class="lemonsqueezy-button" style="color: #555; text-decoration: underline;" data-umami-event="buy-click" data-umami-event-product="ebook" data-umami-event-location="hero">Ebook — €8.99</a>
-                <a href="https://achrenbooks.lemonsqueezy.com/checkout/buy/b0a043fa-0a3b-4428-8814-ffd9595ace58" class="lemonsqueezy-button" style="color: #555; text-decoration: underline;" data-umami-event="buy-click" data-umami-event-product="audiobook" data-umami-event-location="hero">Audiobook — €11.99</a>
-                <a href="https://www.lulu.com/shop/joakim-achren/sleep-again/hardcover/product-kv6q5vd.html" target="_blank" rel="noopener" style="color: #555; text-decoration: underline;" data-umami-event="buy-click" data-umami-event-product="hardcover" data-umami-event-location="hero">Hardcover — €25.99</a>
-                <a href="https://apps.apple.com/fi/app/sleep-again/id6759914968" target="_blank" rel="noopener" style="color: #555; text-decoration: underline;" data-umami-event="app-store-click" data-umami-event-location="hero">iPhone App</a>
-              </div>
-            </div>
-            <div class="social-links" style="margin-top: 1.5rem;">
-              <a href="https://x.com/joakim_a" target="_blank" rel="noopener" aria-label="Follow on X">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            <div class="hero-eyebrow">A book for founders</div>
+            <h1>You crash at midnight. You're up at three. <em>None of the obvious reasons are why.</em></h1>
+            <p class="hero-lede">A practical guide to getting your sleep back without giving up the company. By a founder who lost his and spent two years putting it back together.</p>
+            <div class="hero-cta-block">
+              <a href="https://achrenbooks.lemonsqueezy.com/checkout/buy/d4d24d5e-48b6-475e-a83a-e706df7ed66a"
+                 class="btn-primary lemonsqueezy-button"
+                 data-umami-event="buy-click"
+                 data-umami-event-product="bundle"
+                 data-umami-event-location="hero"
+                 data-umami-event-variant="branded">
+                Get the bundle <span class="price">€19.99</span> <span class="arrow">→</span>
               </a>
-              <a href="https://www.linkedin.com/in/jachren/" target="_blank" rel="noopener" aria-label="Connect on LinkedIn">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-              </a>
-              <a href="https://elitegamedevelopers.substack.com/" target="_blank" rel="noopener" aria-label="Read on Substack">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
-              </a>
+              <p class="secondary-formats">
+                Ebook, audiobook, and three months of the iPhone app. Or just the
+                <a href="https://achrenbooks.lemonsqueezy.com/checkout/buy/77ff09ff-49a7-4aeb-a889-3bb36432f841"
+                   class="lemonsqueezy-button"
+                   data-umami-event="buy-click" data-umami-event-product="ebook" data-umami-event-location="hero" data-umami-event-variant="branded">ebook €8.99</a> ·
+                <a href="https://achrenbooks.lemonsqueezy.com/checkout/buy/b0a043fa-0a3b-4428-8814-ffd9595ace58"
+                   class="lemonsqueezy-button"
+                   data-umami-event="buy-click" data-umami-event-product="audiobook" data-umami-event-location="hero" data-umami-event-variant="branded">audiobook €11.99</a> ·
+                <a href="https://www.lulu.com/shop/joakim-achren/sleep-again/hardcover/product-kv6q5vd.html" target="_blank" rel="noopener"
+                   data-umami-event="buy-click" data-umami-event-product="hardcover" data-umami-event-location="hero" data-umami-event-variant="branded">hardcover €25.99</a>. Also on
+                <a href="https://www.amazon.com/dp/B0GSQXWZF6" target="_blank" rel="noopener"
+                   data-umami-event="buy-click" data-umami-event-product="amazon" data-umami-event-location="hero" data-umami-event-variant="branded">Amazon</a>.
+              </p>
             </div>
           </div>
-          <div class="hero-image">
-            <img src="assets/book_cover2.png" alt="Sleep Again Book Cover" class="book-cover">
+          <div class="hero-book">
+            <img src="assets/book_cover2.png" alt="Sleep Again — book cover">
+            <div class="hero-book-caption">First edition &nbsp;·&nbsp; 2026</div>
           </div>
         </div>
       </div>
-      <!-- Decorative curved lines -->
-      <div class="curve-decoration curve-top-right">
-        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="fadeGradient" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#031D34" stop-opacity="0"/>
-              <stop offset="50%" stop-color="#031D34" stop-opacity="0.5"/>
-              <stop offset="100%" stop-color="#031D34" stop-opacity="1"/>
-            </linearGradient>
-          </defs>
-          <path d="M0 200C0 89.543 89.543 0 200 0" stroke="url(#fadeGradient)" stroke-width="2"/>
-          <path d="M40 200C40 111.634 111.634 40 200 40" stroke="url(#fadeGradient)" stroke-width="2"/>
-          <path d="M80 200C80 133.726 133.726 80 200 80" stroke="url(#fadeGradient)" stroke-width="2"/>
-        </svg>
-      </div>
     </section>
 
+    <!-- Pull-quote band -->
+    <section class="quote-band">
+      <blockquote>
+        Every founder and leader I know has struggled with sleep. The first sleep book that actually felt like it was written for us.
+        <cite><strong>Mika Kuusisto</strong> &nbsp;·&nbsp; Goodreads &nbsp;·&nbsp; <span class="stars" role="img" aria-label="Five stars"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span></cite>
+      </blockquote>
+    </section>
+
+    <!-- About / Why I wrote this -->
     <section class="section">
       <div class="container">
-        <div class="section-header">
-          <h2>Why This Book?</h2>
-          <p>
-            You've read the sleep tips. You know about blue light and caffeine. But as an entrepreneur, your sleep problems run deeper: racing minds at 3 AM, the weight of decisions, the fear of missing out on opportunities.
-          </p>
-        </div>
-        <div class="features-grid">
-          <div class="feature-card">
-            <h3>Science-Based</h3>
-            <p>Understand the hormonal symphony that governs your sleep and why entrepreneurial stress disrupts it differently.</p>
-          </div>
-          <div class="feature-card">
-            <h3>Entrepreneur-Focused</h3>
-            <p>Strategies designed for the unique challenges of building something from nothing, while still getting rest.</p>
-          </div>
-          <div class="feature-card">
-            <h3>Practical Tools</h3>
-            <p>From sleep trackers to meditation techniques, build a personalized toolkit that fits your lifestyle.</p>
+        <div class="section-rule"></div>
+        <div class="about-grid">
+          <aside class="author-card">
+            <div class="section-label"><span class="num">01</span> Why I wrote this</div>
+            <h2>Twenty years of building. Two years of putting <em>my sleep back together.</em></h2>
+            <div class="author-portrait"><img src="assets/joakim.png" alt="Joakim Achrén"></div>
+            <div class="author-card-label">By</div>
+            <div class="author-card-name">Joakim Achrén</div>
+            <div class="author-card-credentials">Co-founded Next Games, acquired by Netflix. Author of <em>Long Term Game</em>. Helsinki.</div>
+          </aside>
+          <div class="about-prose">
+            <p class="lede">I built companies for twenty years. Then I invested in them for six. <em>The 2019 burnout was the obvious break.</em></p>
+            <p>The 2023 collapse was different. I was not running a company at the time. I was rested on paper. But I would wake at 3am with my chest tight and my mind running pricing scenarios for businesses that did not exist yet.</p>
+            <p>I read every sleep book I could find. I tried the trackers, the apps, the supplements, the routines. Most of them are written by sleep researchers for sleep clinic patients. They are not wrong. They just do not know what it is like to be the one with the company on your back.</p>
+            <p>So I wrote the book I needed. Two years of reading and testing. It is the manual for founders who have sacrificed sleep for the company and want it back without giving up the company.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" style="padding-top: 0;">
+    <!-- Readers -->
+    <section class="readers section">
       <div class="container">
-        <div class="section-header">
-          <h2>What's Inside</h2>
-          <p>27 chapters across 6 parts. Here's a taste of what you'll find.</p>
+        <div class="section-rule"></div>
+        <div class="readers-header">
+          <div class="readers-meta"><span class="num">02</span> What readers wrote</div>
+          <h2>Five stars on Amazon and Goodreads. <em>Letters, not blurbs.</em></h2>
+          <p class="readers-deck">From founders, indie hackers, and operators who got an early read.</p>
         </div>
-        <div class="features-grid">
-          <div class="feature-card">
-            <h3>Founder Sleep Interviews</h3>
-            <p>Dozens of entrepreneurs share their worst sleep periods, from fundraising spirals to burnout. <a href="blog/why-entrepreneurs-sleep-worse.html" class="read-more">Read more</a></p>
+        <div class="reader-letters">
+          <div class="reader-letter">
+            <div class="reader-avatar"><img src="assets/reviewers/mika-kuusisto.jpg" alt="Mika Kuusisto"></div>
+            <div>
+              <p>"Practical, no fluff, written by someone who's been there too. This is a must read for every entrepreneur."</p>
+              <cite><strong>Mika Kuusisto</strong> &nbsp;·&nbsp; Goodreads</cite>
+            </div>
           </div>
-          <div class="feature-card">
-            <h3>The Mental Bouncer Technique</h3>
-            <p>A visualization method for falling back asleep when your mind races at 3am. <a href="blog/mental-bouncer-technique.html" class="read-more">Read more</a></p>
+          <div class="reader-letter">
+            <div class="reader-avatar"><img src="assets/reviewers/ethan-grant.jpg" alt="Ethan Grant"></div>
+            <div>
+              <p>"Joakim brings a level of authenticity that is both relatable and genuinely helpful. Someone who cares immensely for the topic and has been studying it for years."</p>
+              <cite><strong>Ethan Grant</strong> &nbsp;·&nbsp; Verified purchase, Amazon</cite>
+            </div>
           </div>
-          <div class="feature-card">
-            <h3>Sleep Chronotypes</h3>
-            <p>Learn whether you're a Lion, Bear, Wolf, or Dolphin, and schedule your day accordingly. <a href="blog/sleep-chronotypes-for-founders.html" class="read-more">Read more</a></p>
+          <div class="reader-letter">
+            <div class="reader-avatar"><img src="assets/reviewers/kevin-deng.jpg" alt="Kevin Deng"></div>
+            <div>
+              <p>"Joakim really shows me that I'm not alone. Without being preachy he created a streamlined map of what it's like in 2026."</p>
+              <cite><strong>Kevin Deng</strong> &nbsp;·&nbsp; Goodreads</cite>
+            </div>
           </div>
-          <div class="feature-card">
-            <h3>Overtraining and Sleep</h3>
-            <p>Why your gym routine might be causing 4am wake-ups, and how to restructure it. <a href="blog/gym-destroying-your-sleep.html" class="read-more">Read more</a></p>
+          <div class="reader-letter">
+            <div class="reader-avatar"><img src="assets/reviewers/mihaylo-shteryov.jpg" alt="Mihaylo Shteryov"></div>
+            <div>
+              <p>"If you're an entrepreneur or someone with a mind that's hard to switch off, this one's for you."</p>
+              <cite><strong>Mihaylo Shteryov</strong> &nbsp;·&nbsp; Goodreads</cite>
+            </div>
           </div>
-          <div class="feature-card">
-            <h3>Caffeine and Alcohol</h3>
-            <p>The science of timing, dosing, and harm reduction for founders who drink coffee and wine. <a href="blog/caffeine-alcohol-founders-diet.html" class="read-more">Read more</a></p>
+          <div class="reader-letter">
+            <div class="reader-avatar"><img src="assets/reviewers/niek-oost.jpg" alt="Niek Oost"></div>
+            <div>
+              <p>"Right time, right place. This book landed exactly when I needed it. Helped me understand why my sleep has two completely different modes."</p>
+              <cite><strong>Niek Oost</strong> &nbsp;·&nbsp; Goodreads</cite>
+            </div>
           </div>
-          <div class="feature-card">
-            <h3>The $50 Sleep Setup</h3>
-            <p>Budget essentials that outperform expensive gadgets: blackout curtains, mask, earplugs, air purifier. <a href="blog/50-dollar-sleep-setup.html" class="read-more">Read more</a></p>
+          <div class="reader-letter">
+            <div class="reader-avatar"><img src="assets/reviewers/kevin-hogan.jpg" alt="Kevin Hogan"></div>
+            <div>
+              <p>"Framing sleep as protecting your most important asset was a particularly powerful message. Acknowledging that perfect sleep isn't always attainable felt very practical and relatable."</p>
+              <cite><strong>Kevin Hogan</strong> &nbsp;·&nbsp; Goodreads</cite>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section bundle-section" id="bundle">
+    <!-- Inside the book -->
+    <section class="inside">
       <div class="container">
-        <div class="section-header">
-          <h2>Get the Complete Bundle</h2>
-          <p>The book gives you the framework. The app puts it into practice.</p>
-          <p>The Sleep Again bundle includes the ebook, the full audiobook, and a 3-month pass to the Sleep Again iPhone app. The app takes the strategies from the book and applies them to your own sleep data, so you're not guessing what works for you.</p>
-          <p>You get everything in one purchase. After checkout, the ebook and audiobook are delivered instantly. A separate email arrives with a QR code for your app pass. Scan it on your iPhone and you're in. <a href="https://apps.apple.com/fi/app/sleep-again/id6759914968" target="_blank" rel="noopener" style="text-decoration: underline;" data-umami-event="app-store-click" data-umami-event-location="bundle-section">View the app on the App Store</a></p>
-          <div style="margin-top: 1.5rem;">
-            <a href="https://achrenbooks.lemonsqueezy.com/checkout/buy/d4d24d5e-48b6-475e-a83a-e706df7ed66a" class="btn btn-primary lemonsqueezy-button" data-umami-event="buy-click" data-umami-event-product="bundle" data-umami-event-location="bundle-section">Get the Bundle — €19.99</a>
-            <p class="form-note" style="margin-top: 0.75rem;">Ebook + Audiobook + 3-month iPhone app pass.</p>
+        <div class="section-rule"></div>
+        <div class="section-label"><span class="num">03</span> Inside the book</div>
+        <div class="inside-grid">
+          <div class="inside-cover">
+            <img src="assets/book_cover2.png" alt="Sleep Again">
           </div>
-          <div style="margin-top: 1rem;">
-            <p style="color: #666;">Or buy separately: <a href="https://achrenbooks.lemonsqueezy.com/checkout/buy/77ff09ff-49a7-4aeb-a889-3bb36432f841" class="lemonsqueezy-button" style="text-decoration: underline;" data-umami-event="buy-click" data-umami-event-product="ebook" data-umami-event-location="bundle-section">Ebook — €8.99</a> · <a href="https://achrenbooks.lemonsqueezy.com/checkout/buy/b0a043fa-0a3b-4428-8814-ffd9595ace58" class="lemonsqueezy-button" style="text-decoration: underline;" data-umami-event="buy-click" data-umami-event-product="audiobook" data-umami-event-location="bundle-section">Audiobook — €11.99</a> · <a href="https://www.lulu.com/shop/joakim-achren/sleep-again/hardcover/product-kv6q5vd.html" target="_blank" rel="noopener" style="text-decoration: underline;" data-umami-event="buy-click" data-umami-event-product="hardcover" data-umami-event-location="bundle-section">Hardcover — €25.99</a></p>
+          <div>
+            <h2>A field manual, <em>not a textbook.</em></h2>
+            <ul class="inside-list">
+              <li>
+                <span class="num">I.</span>
+                <div>
+                  <h3>The mind that won't switch off</h3>
+                  <p>The 3am wake-up, the wired-but-tired evening, the racing pricing scenarios.</p>
+                </div>
+              </li>
+              <li>
+                <span class="num">II.</span>
+                <div>
+                  <h3>The science, compressed</h3>
+                  <p>Hormones, circadian rhythm, chronotypes. Enough to act on, not enough to lecture.</p>
+                </div>
+              </li>
+              <li>
+                <span class="num">III.</span>
+                <div>
+                  <h3>Lifestyle and habits</h3>
+                  <p>Caffeine, training, food, screens. The eight levers that actually move the needle.</p>
+                </div>
+              </li>
+              <li>
+                <span class="num">IV.</span>
+                <div>
+                  <h3>Mental strategies</h3>
+                  <p>Stress, the wind-down routine, the 1am protocol, the 5am dilemma.</p>
+                </div>
+              </li>
+              <li>
+                <span class="num">V.</span>
+                <div>
+                  <h3>Your sleep toolkit</h3>
+                  <p>Practical setup, masks, earplugs, what works and what is overpriced.</p>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Closing CTA — Variant A: Tiered cards -->
+    <section class="closing-v-a">
+      <div class="container">
+        <div class="section-rule"></div>
+        <div class="section-label"><span class="num">04</span> Get it</div>
+        <h2 style="max-width: 22ch; margin-bottom: 0.6rem;">Pick your format. <em>Or take the bundle.</em></h2>
+        <p class="deck">Three formats. The bundle gives you the ebook, the audiobook, and three months of the iPhone app at a small discount over buying separately.</p>
+
+        <div class="tiers">
+          <div class="tier">
+            <div class="tier-name">Ebook</div>
+            <div class="tier-price"><span class="currency">€</span>8.99</div>
+            <p class="tier-desc">EPUB and PDF, instant download. For Kindle, iPad, or any reader.</p>
+            <ul class="tier-includes"><li>EPUB and PDF files</li><li>No DRM</li></ul>
+            <a href="https://achrenbooks.lemonsqueezy.com/checkout/buy/77ff09ff-49a7-4aeb-a889-3bb36432f841" class="tier-btn lemonsqueezy-button" data-umami-event="buy-click" data-umami-event-product="ebook" data-umami-event-location="footer" data-umami-event-variant="branded-cta-a">Get the ebook <span class="arrow">→</span></a>
+          </div>
+
+          <div class="tier featured">
+            <span class="tier-badge">Best value</span>
+            <div class="tier-name">Bundle</div>
+            <div class="tier-price"><span class="currency">€</span>19.99</div>
+            <p class="tier-desc">Everything together. Best math if you want both formats.</p>
+            <ul class="tier-includes"><li>Ebook (EPUB + PDF)</li><li>Audiobook (MP3)</li><li>Three months of the iPhone app</li></ul>
+            <a href="https://achrenbooks.lemonsqueezy.com/checkout/buy/d4d24d5e-48b6-475e-a83a-e706df7ed66a" class="tier-btn primary lemonsqueezy-button" data-umami-event="buy-click" data-umami-event-product="bundle" data-umami-event-location="footer" data-umami-event-variant="branded-cta-a">Get the bundle <span class="arrow">→</span></a>
+          </div>
+
+          <div class="tier">
+            <div class="tier-name">Audiobook</div>
+            <div class="tier-price"><span class="currency">€</span>11.99</div>
+            <p class="tier-desc">MP3 download. For commutes, walks, or the wind-down hour.</p>
+            <ul class="tier-includes"><li>MP3, 192 kbps</li><li>Direct download, no subscription</li></ul>
+            <a href="https://achrenbooks.lemonsqueezy.com/checkout/buy/b0a043fa-0a3b-4428-8814-ffd9595ace58" class="tier-btn lemonsqueezy-button" data-umami-event="buy-click" data-umami-event-product="audiobook" data-umami-event-location="footer" data-umami-event-variant="branded-cta-a">Get the audiobook <span class="arrow">→</span></a>
+          </div>
+        </div>
+
+        <p class="closing-also">
+          Also available:
+          <a href="https://www.lulu.com/shop/joakim-achren/sleep-again/hardcover/product-kv6q5vd.html" target="_blank" rel="noopener" data-umami-event="buy-click" data-umami-event-product="hardcover" data-umami-event-location="footer" data-umami-event-variant="branded-cta-a">hardcover €25.99</a>,
+          <a href="https://www.amazon.com/dp/B0GSQXWZF6" target="_blank" rel="noopener" data-umami-event="buy-click" data-umami-event-product="amazon" data-umami-event-location="footer" data-umami-event-variant="branded-cta-a">Amazon</a>,
+          <a href="https://apps.apple.com/fi/app/sleep-again/id6759914968" target="_blank" rel="noopener" data-umami-event="app-store-click" data-umami-event-location="footer" data-umami-event-variant="branded-cta-a">App Store</a>. Or
+          <a href="free-chapter.html" data-umami-event="free-chapter-click" data-umami-event-location="footer" data-umami-event-variant="branded-cta-a">read the first chapter free →</a>
+        </p>
+      </div>
+    </section>
+
   </main>
 
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-main">
-          <h3>Sleep Again</h3>
-          <p>A book about reclaiming rest without giving up your ambitions.</p>
-          <div class="social-links" style="margin: 1rem 0;">
-            <a href="https://x.com/joakim_a" target="_blank" rel="noopener" aria-label="Follow on X">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </a>
-            <a href="https://www.linkedin.com/in/jachren/" target="_blank" rel="noopener" aria-label="Connect on LinkedIn">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            </a>
-            <a href="https://elitegamedevelopers.substack.com/" target="_blank" rel="noopener" aria-label="Read on Substack">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
-            </a>
-          </div>
-          <div class="footer-form">
-            <form id="footer-waitlist-form" class="waitlist-form">
-              <input type="email" id="footer-waitlist-email" placeholder="Enter your email" required>
-              <button type="submit" class="btn" data-umami-event="waitlist-signup" data-umami-event-location="footer">Get Notified</button>
-            </form>
-          </div>
+  <footer class="site-footer">
+    <div class="site-footer-grid">
+      <div class="site-footer-main">
+        <h3>Sleep <em>Again</em></h3>
+        <p>A book about reclaiming rest without giving up your ambitions. Updates on launch events, new chapters, and reader Q&amp;As.</p>
+        <div class="site-footer-social">
+          <a href="https://x.com/joakim_a" target="_blank" rel="noopener" aria-label="Follow on X">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/jachren/" target="_blank" rel="noopener" aria-label="Connect on LinkedIn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://elitegamedevelopers.substack.com/" target="_blank" rel="noopener" aria-label="Read on Substack">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
+          </a>
         </div>
-        <div class="footer-links">
-          <h4>Navigate</h4>
-          <ul>
-            <li><a href="about.html">About the Book</a></li>
-            <li><a href="chapters.html">Chapters</a></li>
-            <li><a href="author.html">Author</a></li>
-            <li><a href="blog/index.html">Articles</a></li>
-            <li><a href="faq.html">FAQ</a></li>
-            <li><a href="https://apps.apple.com/fi/app/sleep-again/id6759914968" target="_blank" rel="noopener">iPhone App</a></li>
-          </ul>
-        </div>
+        <form id="footer-waitlist-form" class="site-footer-form">
+          <input type="email" id="footer-waitlist-email" placeholder="Your email" required>
+          <button type="submit" data-umami-event="waitlist-signup" data-umami-event-location="footer">Get notified</button>
+        </form>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 Joakim Achrén. All rights reserved.</p>
+      <div class="site-footer-links">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="about.html">About the Book</a></li>
+          <li><a href="chapters.html">Chapters</a></li>
+          <li><a href="author.html">Author</a></li>
+          <li><a href="blog/index.html">Articles</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="https://apps.apple.com/fi/app/sleep-again/id6759914968" target="_blank" rel="noopener">iPhone App</a></li>
+        </ul>
       </div>
+    </div>
+    <div class="site-footer-bottom">
+      <div class="colophon-meta">© 2026 Joakim Achrén &nbsp;·&nbsp; Helsinki</div>
+      <div>Also by the author: <a href="https://www.amazon.com/Long-Term-Game-Build-Company/dp/B088B79TN5" target="_blank" rel="noopener"><em>Long Term Game</em></a></div>
     </div>
   </footer>
 
-  <script src="js/main.js?v=3"></script>
-  <script>
-  function submitWaitlist(email, btn, redirectPath) {
-    btn.disabled = true;
-    var originalText = btn.textContent;
-    btn.textContent = 'Sending…';
-    fetch('https://api.convertkit.com/v3/forms/9118264/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ api_key: 'DUyq416rGUL_qxk-o1jLlQ', email: email, tags: [16407733] })
-    })
-    .then(function(res) {
-      if (res.ok || res.status === 200 || res.status === 201) {
-        window.location.href = redirectPath;
-      } else {
-        throw new Error('API error ' + res.status);
-      }
-    })
-    .catch(function() {
-      btn.textContent = originalText;
-      btn.disabled = false;
-    });
-  }
+  <!-- Mobile sticky CTA -->
+  <div class="sticky-cta" id="stickyCta">
+    <div class="sticky-cta-text"><strong>Sleep Again</strong> <em>· bundle</em></div>
+    <a href="https://achrenbooks.lemonsqueezy.com/checkout/buy/d4d24d5e-48b6-475e-a83a-e706df7ed66a"
+       class="lemonsqueezy-button"
+       data-umami-event="buy-click" data-umami-event-product="bundle" data-umami-event-location="sticky" data-umami-event-variant="branded">
+      Get it · €19.99 →
+    </a>
+  </div>
 
-  document.getElementById('footer-waitlist-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    var email = document.getElementById('footer-waitlist-email').value.trim();
-    var btn = this.querySelector('button[type="submit"]');
-    submitWaitlist(email, btn, 'https://sleepagain.co/?subscribed=true');
-  });
+  <script>
+    (function () {
+      var sticky = document.getElementById('stickyCta');
+      var threshold = 540;
+      function onScroll() {
+        if (window.scrollY > threshold) sticky.classList.add('is-visible');
+        else sticky.classList.remove('is-visible');
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
+    /* Kit (ConvertKit) waitlist signup — same form/tag as production */
+    (function () {
+      var form = document.getElementById('footer-waitlist-form');
+      if (!form) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var input = document.getElementById('footer-waitlist-email');
+        var btn = form.querySelector('button[type="submit"]');
+        var email = input.value.trim();
+        if (!email) return;
+        var originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+        fetch('https://api.convertkit.com/v3/forms/9118264/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ api_key: 'DUyq416rGUL_qxk-o1jLlQ', email: email, tags: [16407733] })
+        })
+        .then(function (res) {
+          if (res.ok || res.status === 200 || res.status === 201) {
+            window.location.href = 'https://sleepagain.co/?subscribed=true';
+          } else {
+            throw new Error('API error ' + res.status);
+          }
+        })
+        .catch(function () {
+          btn.textContent = originalText;
+          btn.disabled = false;
+        });
+      });
+    })();
   </script>
 </body>
 </html>
